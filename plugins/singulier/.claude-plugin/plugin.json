@@ -1,0 +1,9 @@
+{
+  "name": "singulier",
+  "version": "0.3.0",
+  "description": "Helps non-technical team members query project code, manage GitHub issues and Projects, and keep local clones up to date.",
+  "author": {
+    "name": "Singulier"
+  },
+  "repository": "https://github.com/wearegraphite/singulier-claude"
+}

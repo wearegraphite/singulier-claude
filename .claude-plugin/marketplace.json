@@ -1,0 +1,17 @@
+{
+  "name": "singulier",
+  "owner": {
+    "name": "Singulier"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for the Singulier team."
+  },
+  "plugins": [
+    {
+      "name": "singulier",
+      "source": "./plugins/singulier",
+      "description": "Helps non-technical team members query project code, manage GitHub issues and Projects, and keep local clones up to date.",
+      "version": "0.3.0"
+    }
+  ]
+}

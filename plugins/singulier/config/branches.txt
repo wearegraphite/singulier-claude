@@ -1,0 +1,7 @@
+# Branch that team members' clones follow, per repository.
+# One line per repository: <repository name> <branch>. Case-insensitive.
+# Repositories not listed follow their GitHub default branch.
+# A clone can still override this with `git config singulier.branch <branch>`.
+#
+# Example:
+# my-project dev
