@@ -58,6 +58,17 @@ them: run the commands yourself, or from a session opened outside the workspace.
 | `singulier.branch` | `config/branches.txt`, else the repository's default branch | Branch this clone follows, overriding `branches.txt`. Example: `git config singulier.branch dev`. |
 | `singulier.readonly` | `true` | `false` lifts the read-only guardrails for that clone (for a team member who is allowed to edit, for example documentation). |
 
+## Contact shown to team members
+
+The `help` / `aide` skills tell users who to contact when they are stuck. By
+default they say "the project admin". To name a person or a channel without
+writing it in this public repository, set the `SINGULIER_CONTACT` environment
+variable, ideally in the organisation's managed settings:
+
+```json
+{ "env": { "SINGULIER_CONTACT": "the #my-team channel, or Jane Doe" } }
+```
+
 ## Workspace location
 
 Default: `~/Singulier` (macOS), `C:\Users\<name>\Singulier` (Windows). To change

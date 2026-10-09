@@ -70,6 +70,8 @@ Pendant la configuration :
 Le projet se met à jour tout seul à chaque nouvelle session : vous voyez toujours
 la version actuelle.
 
+Vous ne savez plus quoi demander ? Tapez **`/singulier:aide`**.
+
 Exemples de demandes :
 
 - « Comment est calculé le prix d'un produit ? »

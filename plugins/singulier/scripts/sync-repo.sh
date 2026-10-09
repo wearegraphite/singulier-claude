@@ -53,6 +53,7 @@ for line in ${warnings[@]+"${warnings[@]}"}; do context="$context WARNING: $line
 if [ ${#warnings[@]} -gt 0 ]; then
   context="$context Tell the user about each warning in their language, in plain words, before answering."
 fi
+context="$context If the user seems lost or asks what you can do, offer /singulier:aide (French) or /singulier:help (English)."
 
 printf '{'
 if [ ${#warnings[@]} -gt 0 ]; then

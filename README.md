@@ -15,6 +15,7 @@ Claude Code CLI.
 
 | Part | What it does |
 | --- | --- |
+| `help` / `aide` skills | `/singulier:help` (English) or `/singulier:aide` (French): what to ask, how to open a project, what Claude will not do, state of the local copy, who to contact. |
 | `setup-check` skill | Checks and repairs the computer setup (git, GitHub CLI, login, workspace) and clones projects. Run `/singulier:setup-check`. |
 | `new-ticket` skill | Step-by-step interview (problem, goal, done when, urgency) that turns a need into a well-built issue, in the [ticket-flow](https://github.com/Xavier-Cliquennois/claude-ticket-flow) shape. |
 | `github-tracking` skill | Issues and GitHub Projects: find, update, comment, status summaries, views. |

@@ -70,6 +70,8 @@ During the setup:
 The project updates itself at each new session: you always see the current
 version.
 
+Not sure what to ask? Type **`/singulier:help`**.
+
 Examples:
 
 - "How is the price of a product calculated?"
