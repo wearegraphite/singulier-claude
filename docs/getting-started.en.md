@@ -2,6 +2,8 @@
 
 [Version française](getting-started.fr.md)
 
+Just want the steps? See the [quick guide](quick-guide.en.md).
+
 This guide is for you if you are not a developer. Once done, you can ask Claude
 questions about our projects ("how is this price calculated?") and create or
 follow GitHub issues, without going through a developer.

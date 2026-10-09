@@ -11,6 +11,8 @@ GitHub projects without a developer at hand:
 It works on macOS and Windows, in the Claude desktop app (Code tab) and in the
 Claude Code CLI.
 
+**New here? Start with the one-page guide: [Français](docs/guide-express.fr.md) · [English](docs/quick-guide.en.md).**
+
 ## What is inside
 
 | Part | What it does |

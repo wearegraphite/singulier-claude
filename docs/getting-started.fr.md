@@ -2,6 +2,8 @@
 
 [English version](getting-started.en.md)
 
+Vous voulez juste les étapes ? Voir le [guide express](guide-express.fr.md).
+
 Ce guide est pour vous si vous n'êtes pas développeur. Une fois terminé, vous
 pourrez poser des questions à Claude sur nos projets (« comment est calculé ce
 prix ? ») et créer ou suivre des issues GitHub, sans passer par un développeur.
