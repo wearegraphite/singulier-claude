@@ -1,5 +1,14 @@
 # singulier-claude
 
+> [!IMPORTANT]
+> ## 👉 Vous n'êtes pas développeur ? Commencez ici · Not a developer? Start here
+>
+> ### 🇫🇷 [Guide express : parler au produit en langage simple](docs/guide-express.fr.md)
+> ### 🇬🇧 [Quick guide: talking to the product in plain words](docs/quick-guide.en.md)
+>
+> Une page, des étapes numérotées. Questions, tickets, avancement, sans connaître GitHub.
+> One page, numbered steps. Questions, tickets, progress, no GitHub knowledge needed.
+
 A Claude Code plugin that lets non-technical Singulier team members work on our
 GitHub projects without a developer at hand:
 
@@ -10,8 +19,6 @@ GitHub projects without a developer at hand:
 
 It works on macOS and Windows, in the Claude desktop app (Code tab) and in the
 Claude Code CLI.
-
-**New here? Start with the one-page guide: [Français](docs/guide-express.fr.md) · [English](docs/quick-guide.en.md).**
 
 ## What is inside
 
