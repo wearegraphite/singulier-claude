@@ -20,7 +20,8 @@ Organization settings > Claude Code > Managed settings):
 {
   "extraKnownMarketplaces": {
     "singulier": {
-      "source": { "source": "github", "repo": "wearegraphite/singulier-claude" }
+      "source": { "source": "github", "repo": "wearegraphite/singulier-claude" },
+      "autoUpdate": true
     }
   },
   "enabledPlugins": {
@@ -30,6 +31,8 @@ Organization settings > Claude Code > Managed settings):
 ```
 
 Points to know:
+
+- `autoUpdate: true` makes Claude Code fetch new plugin versions in the background (off by default for non-Anthropic marketplaces). Set in managed settings, users cannot turn it off.
 
 - It applies to every member, developers included. The plugin only acts inside the workspace folder, so developers' own clones are not affected.
 - Members still need read access to this private repository for Claude Code to fetch it. To verify on a first test machine before rolling out.

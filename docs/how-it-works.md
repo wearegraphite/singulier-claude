@@ -15,6 +15,14 @@
 
 The hook never blocks the session: any failure becomes a warning.
 
+## Plugin version check
+
+`scripts/version-check.sh`, run by the same hook, compares the installed
+`plugin.json` version with the one published on `main` of the repository named
+in `plugin.json` (`gh api`, 10 s timeout). The result is cached for a day in
+`CLAUDE_PLUGIN_DATA`. When a newer version exists, Claude tells the user how to
+update. Offline, logged out or rate-limited: no message, no error.
+
 ## Guardrails
 
 `plugins/singulier/scripts/guard.sh` runs before each Bash, Edit, Write,

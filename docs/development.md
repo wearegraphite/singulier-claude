@@ -47,5 +47,10 @@ Open it inside a workspace clone to exercise the hooks; set
 
 ## Releasing
 
-1. Bump `version` in `plugins/singulier/.claude-plugin/plugin.json` and in `.claude-plugin/marketplace.json`.
-2. Merge to `main`. Installed copies pick up the new version when the marketplace updates (automatically if auto-update is on, or with `/plugin marketplace update singulier`).
+1. Bump `version` in `plugins/singulier/.claude-plugin/plugin.json`, and only there: Claude Code takes the version from `plugin.json` and only ships a commit to users when that version changes. Do not put a `version` in the `marketplace.json` entry.
+2. Merge to `main`.
+
+How users get it:
+
+- **Auto-update** (`autoUpdate: true` on the marketplace): Claude Code refreshes the marketplace in the background a few minutes into a session; the new version loads at the next launch or after `/reload-plugins`. It needs stored GitHub credentials (`gh auth setup-git`) while the repository is private, and fails silently otherwise.
+- **Our own check**: once a day, the session-start hook compares the installed version with the one on `main` and has Claude tell the user to restart the app, or to run `/plugin marketplace update singulier` then `/reload-plugins`.

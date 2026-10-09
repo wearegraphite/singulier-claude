@@ -12,7 +12,7 @@ for troubleshooting.
 | git | Apple Command Line Tools (`xcode-select --install`, a system window) | `winget install --id Git.Git -e` |
 | GitHub CLI (`gh`) | official `.pkg` installer from the latest `cli/cli` release | `winget install --id GitHub.cli -e` |
 | GitHub login | `gh auth login --web -h github.com -p https -s project` (device code in the browser), then `gh auth setup-git` | same |
-| Plugin | user `settings.json`: `extraKnownMarketplaces.singulier` and `enabledPlugins["singulier@singulier"]` | same |
+| Plugin | user `settings.json`: `extraKnownMarketplaces.singulier` (with `autoUpdate: true`) and `enabledPlugins["singulier@singulier"]` | same |
 | Workspace | `~/Singulier/<repo>` clones via `gh repo clone` | `C:\Users\<name>\Singulier\<repo>` |
 
 No Homebrew and no admin rights are needed on macOS, apart from the computer
