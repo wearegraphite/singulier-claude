@@ -34,6 +34,8 @@ you would to a colleague. No need to know GitHub.
    - **a ticket**: "Create a ticket: the export button does nothing on the clients page."
    - **progress**: "Where are we on the payment integration?"
 6. Claude shows you the ticket **before** creating it: read it, then reply "OK" or say what to change.
+7. Shared a screenshot or a file? Claude asks which ones go in the ticket. You add images yourself on the ticket's GitHub page: Claude gives you the link, drag them into the comment box at the bottom.
+8. Ticket created: type `/clear` or open a **new chat** for the next topic. A very long conversation makes Claude slower and less precise. Nothing is lost: it is all in the ticket.
 
 ---
 

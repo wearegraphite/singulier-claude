@@ -34,6 +34,8 @@ en écrivant comme à un collègue. Pas besoin de connaître GitHub.
    - **un ticket** : « Crée un ticket : le bouton d'export ne fait rien sur la page clients. »
    - **l'avancement** : « Où en est-on sur l'intégration du paiement ? »
 6. Claude vous montre le ticket **avant** de le créer : relisez-le, puis répondez « OK » ou dites ce qu'il faut changer.
+7. Vous avez donné une capture ou un fichier ? Claude vous demande lesquels mettre dans le ticket. Les images, c'est vous qui les ajoutez sur la page GitHub du ticket : Claude vous donne le lien, glissez-les dans la zone de commentaire en bas.
+8. Ticket créé : tapez `/clear` ou ouvrez un **nouveau chat** pour le sujet suivant. Une conversation trop longue rend Claude plus lent et moins précis. Rien n'est perdu : tout est dans le ticket.
 
 ---
 

@@ -122,7 +122,35 @@ Security: if the need touches logins, rights, one client seeing another's data,
 files people upload, payments or secrets, say so in « Contexte » and add the
 `sécurité` label if the repository has it.
 
-## 6. Confirm, create, report
+## 6. Attachments
+
+Users often share a screenshot or a file and expect it to end up in the ticket.
+Never use an attachment only as your own context without asking.
+
+If the user shared anything in this conversation (pasted image, screenshot,
+dropped file, file path, log or table pasted as a block), list every item
+before showing the draft, numbered, each with a few words on what it shows
+(« 1. capture de la page clients, bouton Export grisé »), and ask which ones go
+in the ticket: all, some (which), or none. Use AskUserQuestion with
+multiSelect when there are four items or fewer; otherwise ask in plain text.
+Do not decide for them, even when an item looks obviously useful.
+
+Before asking, look at each item for personal data, client names, amounts or
+secrets. Point them out (« on voit le nom d'un client en haut ») and suggest
+cropping or blurring before it goes into the ticket.
+
+How each kept item gets in, to tell the user when you ask:
+
+- **Text** (error message, log, CSV extract): you paste it in the body, under a
+  `## Pièces jointes` section, in a code block. Keep only the useful part,
+  remove personal data and secrets, and say « extrait » if you cut it.
+- **Images and other files** (screenshots, PDF, Excel): GitHub offers no way to
+  attach them from the command line, so the user adds them, in a minute, once
+  the ticket exists, from the ticket's link that you give them (step 7). Say
+  this plainly now, so they do not believe Claude attached them. List them in `## Pièces jointes` with what each shows
+  and « ajoutée en commentaire par le demandeur ».
+
+## 7. Confirm, create, report
 
 1. Show the full draft (title, body, labels) and wait for an explicit
    go-ahead. Apply the corrections and show it again if they are substantial.
@@ -135,10 +163,43 @@ files people upload, payments or secrets, say so in « Contexte » and add the
    lists (see the github-tracking skill for the commands).
 4. Give the user the link and a one-line summary. If you split the need, list
    every ticket created.
+5. If images or files are to be added, say it in a block of its own, so it
+   cannot be missed:
+
+   ```
+   ⚠️ Vos pièces jointes ne sont pas encore dans le ticket.
+   Pour les ajouter, ouvrez ce lien : <issue url>
+   À ajouter :
+   1. <ce que montre la pièce 1>
+   2. <ce que montre la pièce 2>
+   ```
+
+   Always write the full link in the message; also open it in their browser
+   (`gh issue view <n> --web`), but do not rely on that alone. Then guide them,
+   one short step at a time: scroll to the « Add a comment » box at the bottom,
+   drag the files into it (or paste a screenshot with Ctrl+V / Cmd+V), wait for
+   the upload to finish, click « Comment ». When they say it is done, check with
+   `gh issue view <n> --comments` that the comment holds the files, and tell
+   them if one is missing.
+
+## 8. Suggest a fresh conversation
+
+Once the ticket is created (and its files added), suggest starting a new
+conversation for the next topic, and say why in plain words:
+
+- a long conversation fills Claude's memory: answers get slower, less precise,
+  and details from an earlier topic can leak into the next one;
+- everything that matters is now saved in the ticket on GitHub, so nothing is
+  lost.
+
+How: type `/clear` in this chat, or click « nouveau chat » and pick the same
+project. You cannot do it for them. If they want to keep going on this same
+ticket (a correction, a question about it), staying here is fine.
 
 ## Never
 
 - Create, edit or comment an issue without the user's go-ahead.
+- Leave out, or include, an attachment the user shared without asking them.
 - Put credentials, client personal data or commercially sensitive figures in a
   ticket. Describe them (« un client grand compte ») instead.
 - Present a guess about the code as a fact.
