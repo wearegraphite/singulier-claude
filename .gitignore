@@ -1,2 +1,5 @@
 .DS_Store
 .claude/settings.local.json
+
+# Personal briefs used to generate presentation assets, never committed
+presentation-brief*.md

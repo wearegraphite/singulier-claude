@@ -50,6 +50,8 @@ Open it inside a workspace clone to exercise the hooks; set
 1. Bump `version` in `plugins/singulier/.claude-plugin/plugin.json`, and only there: Claude Code takes the version from `plugin.json` and only ships a commit to users when that version changes. Do not put a `version` in the `marketplace.json` entry.
 2. Merge to `main`.
 
+Do the bump before every push that changes `plugins/singulier/`, not only for big releases: an unbumped push never reaches users. A project hook (`.claude/settings.json` → `.claude/hooks/require-version-bump.sh`) blocks a `git push` run by Claude when files under `plugins/singulier/` changed since the upstream branch and the version did not. It does not cover pushes typed by hand.
+
 How users get it:
 
 - **Auto-update** (`autoUpdate: true` on the marketplace): Claude Code refreshes the marketplace in the background a few minutes into a session; the new version loads at the next launch or after `/reload-plugins`. It needs stored GitHub credentials (`gh auth setup-git`) while the repository is private, and fails silently otherwise.
