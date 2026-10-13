@@ -20,6 +20,8 @@ ticket-flow agent) can deliver without coming back to ask. Speak their language
   defaults below.
 - Conventions: `.github/ISSUE_TEMPLATE/`, `gh label list`, three recent issues
   (`gh issue list --limit 3 --json number,title,body,labels`).
+- Who the user is on GitHub: `gh api user --jq .login`. People who can take a
+  ticket: `gh api repos/<owner>/<repo>/assignees --jq '.[].login'`.
 
 Do not report this step to the user; just use it.
 
@@ -44,9 +46,15 @@ answered in their first message. Never ask what the code can tell you.
 5. **Urgency**: blocking now, needed by a date, or when possible.
 6. **Out of scope** (only if the need is broad): what this ticket should not
    try to solve.
+7. **Who takes it**: always ask, even when you have no name to suggest: the
+   habit matters more than the answer. Choices: the user themselves, someone
+   else (up to two names from the assignees list, people already working on
+   that part of the project first), or « personne pour l'instant, l'équipe
+   choisira ». Never pick for them. For a split, ask once: the same person for
+   every ticket, ticket by ticket, or nobody.
 
-Stop when you can fill the template below; five or six questions is usually
-enough. If the answers describe several unrelated problems, say so and offer
+Stop when you can fill the template below; five to seven questions is usually
+enough (the last one, who takes it, is never skipped). If the answers describe several unrelated problems, say so and offer
 one ticket each.
 
 ## 3. Check the code (read-only)
@@ -98,7 +106,8 @@ ticket-flow headings, keep them so the developers' tools can read the ticket):
 ## Contexte
 Le problème aujourd'hui : quoi, où, pour qui, depuis quand, à quelle fréquence.
 Pour un bug : étapes pour reproduire, résultat obtenu, résultat attendu.
-Demandé par : <rôle ou personne>, le <date>. Urgence : <bloquant / avant le JJ/MM / quand possible>.
+Créé par : @<login>, le <date> : à contacter si quelque chose n'est pas clair.
+Demandé par : <rôle ou personne, si ce n'est pas la même>. Urgence : <bloquant / avant le JJ/MM / quand possible>.
 
 ## Ce qu'on veut
 Le résultat attendu en une ou deux phrases, et pourquoi ça compte.
@@ -120,7 +129,10 @@ Ce que ce ticket ne résout pas.
 ```
 
 Leave out a section that has nothing to say, except « Ce qu'on veut » and
-« Fini quand ». « Fini quand » boxes must be checkable: no « ça marche bien ».
+« Fini quand ». The « Créé par » line is always there: it is who a developer
+contacts when the ticket is unclear (the user's own GitHub login: Claude
+creates the issue with their account, but the body is what developers and
+their agents read). « Fini quand » boxes must be checkable: no « ça marche bien ».
 
 ### Epic (only when you split)
 
@@ -130,6 +142,7 @@ headings, keep them):
 ````markdown
 ## Pourquoi cet épic
 Le problème et le résultat qui dira que c'est atteint.
+Créé par : @<login>, le <date> : à contacter si quelque chose n'est pas clair.
 
 ## Vagues
 | Vague | Tickets | Attend | Pourquoi | Statut |
@@ -208,11 +221,11 @@ How each kept item gets in, to tell the user when you ask:
 
 ## 7. Confirm, create, report
 
-1. Show the full draft (title, body, labels) and wait for an explicit
-   go-ahead. Apply the corrections and show it again if they are substantial.
+1. Show the full draft (title, body, labels, who takes it or « non
+   assigné ») and wait for an explicit go-ahead. Apply the corrections and show it again if they are substantial.
 2. Create it: write the body to a temporary file, then
-   `gh issue create --title ... --body-file <file> --label ...`. Read the
-   issue number and link from the output.
+   `gh issue create --title ... --body-file <file> --label ... [--assignee <login>]`
+   (`@me` for the user themselves). Read the issue number and link from the output.
    With a split: create the tickets first, then the epic with their real
    numbers in its waves table and graph (label `epic` if the repository has it),
    then attach each ticket as a sub-issue of the epic and add the "waits for"
@@ -224,7 +237,8 @@ How each kept item gets in, to tell the user when you ask:
    (`gh project item-add <n> --owner wearegraphite --url <issue url>`) and set
    its status (the epic's too) to the "to do" option and the fields the `## Workflow` section
    lists (see the github-tracking skill for the commands).
-4. Give the user the link and a one-line summary. If you split the need, list
+4. Give the user the link and a one-line summary, with who takes it (or
+   « non assigné : pensez à le confier à quelqu'un »). If you split the need, list
    every ticket created and the epic first.
 5. If images or files are to be added, say it in a block of its own, so it
    cannot be missed:
