@@ -29,7 +29,7 @@ Claude Code CLI.
 | `new-ticket` skill | Step-by-step interview (problem, goal, done when, urgency) that turns a need into a well-built issue, in the [ticket-flow](https://github.com/Xavier-Cliquennois/claude-ticket-flow) shape. A need too big for one ticket is split under an epic with its wave table and Mermaid graph. |
 | `github-tracking` skill | Issues and GitHub Projects: find, update, comment, status summaries (epics included), checks waiting for the user and closing a ticket once they confirm it, views. |
 | `code-questions` skill | Explains how a project works, from its code and docs, for non-developers. |
-| `SessionStart` hook | Fast-forwards the clones of the workspace to their reference branch. |
+| `SessionStart` and `UserPromptSubmit` hooks | Fast-forward the clones of the workspace to their reference branch: at session start, then at most every 4 hours before a message. |
 | `PreToolUse` hook | Keeps workspace clones read-only and blocks destructive commands. |
 | update band | A row above the prompt when a newer version is published, with a **Mettre à jour** button that updates the plugin in the open session. |
 

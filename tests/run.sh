@@ -71,6 +71,21 @@ contains "syncs every clone from the workspace root" "$out" "project is up to da
 out=$(sync "$tmp/outside")
 check "ignores folders outside the workspace" "" "$out"
 
+echo "== throttled sync (UserPromptSubmit)"
+prompt_sync() { CLAUDE_PROJECT_DIR="$1" bash "$scripts/sync-repo.sh" prompt </dev/null; }
+(cd "$tmp/author" && echo v3 > file.txt && git commit -qam v3 && git push -q origin main)
+sync "$repo" >/dev/null # session start stamps the attempt
+out=$(prompt_sync "$repo")
+check "stays silent while the last sync is recent" "" "$out"
+(cd "$tmp/author" && echo v4 > file.txt && git commit -qam v4 && git push -q origin main)
+prompt_sync "$repo" >/dev/null
+contains "does not fetch while the last sync is recent" "$(cat "$repo/file.txt")" "v3"
+printf '%s' "$(( $(date +%s) - 5 * 3600 ))" >"$repo/.git/singulier-last-sync"
+out=$(prompt_sync "$repo")
+contains "syncs once the last sync is older than 4 hours" "$(cat "$repo/file.txt")" "v4"
+contains "labels the output for UserPromptSubmit" "$out" "UserPromptSubmit"
+check "keeps the stamp out of git status" "" "$(git -C "$repo" status --porcelain)"
+
 echo "== guard"
 guard "$repo" '{"tool_name":"Bash","tool_input":{"command":"git log --oneline -5"}}'; check "allows git log" 0 $?
 guard "$repo" '{"tool_name":"Bash","tool_input":{"command":"gh issue create --title \"x\""}}'; check "allows gh issue create" 0 $?

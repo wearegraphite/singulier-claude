@@ -1,8 +1,13 @@
 # How it works
 
-## Session start: keeping clones up to date
+## Keeping clones up to date
 
-`plugins/singulier/scripts/sync-repo.sh` runs when a session starts or resumes.
+`plugins/singulier/scripts/sync-repo.sh` runs:
+
+- when a session starts or resumes (`SessionStart`): always;
+- before each user message (`UserPromptSubmit`, `prompt` mode): only for a clone whose last sync attempt is older than 4 hours (`SINGULIER_SYNC_HOURS` to change it). Otherwise it does nothing and stays silent, so a session left open for days still reads current code without a network call at every message.
+
+The time of the last attempt, successful or not, is kept in `.git/singulier-last-sync` of each clone: an offline laptop is retried every 4 hours, not at every message.
 
 1. It exits at once if the session folder is outside the workspace.
 2. It picks the clone the session is in, or every clone when the workspace root itself is open.
@@ -13,7 +18,7 @@
    - fast-forward only. If the local branch has diverged, it is skipped with a warning (never merges).
 4. It passes the result to Claude as context. Warnings are also shown to the user, and Claude explains them in plain words.
 
-The hook never blocks the session: any failure becomes a warning.
+The hook never blocks the session or the message: any failure becomes a warning.
 
 ## Update band
 

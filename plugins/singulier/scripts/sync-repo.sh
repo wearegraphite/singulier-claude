@@ -1,9 +1,34 @@
 #!/usr/bin/env bash
-# SessionStart hook: fast-forwards the clones of the Singulier workspace to
-# their reference branch, so non-technical users always read current code.
+# Fast-forwards the clones of the Singulier workspace to their reference
+# branch, so non-technical users always read current code.
 # Never merges, never discards local work, never blocks the session.
+#
+# Two modes:
+#   (no argument)  SessionStart: always syncs.
+#   prompt         UserPromptSubmit: syncs a clone only if its last attempt is
+#                  older than SINGULIER_SYNC_HOURS (default 4), so a session
+#                  left open for days still reads current code without a
+#                  network call at every message.
 set -u
 . "$(dirname "$0")/lib.sh"
+
+mode=${1:-session}
+hours=${SINGULIER_SYNC_HOURS:-4}
+case "$hours" in '' | *[!0-9]*) hours=4 ;; esac
+interval=$((hours * 3600))
+now=$(date +%s)
+
+# Stamp kept inside .git, so it never shows up as a local change. It records
+# the last attempt, successful or not: an offline laptop is not retried at
+# every message.
+stamp_file() { printf '%s/singulier-last-sync' "$(git -C "$1" rev-parse --absolute-git-dir)"; }
+sync_due() {
+  local last
+  [ "$mode" = prompt ] || return 0
+  last=$(cat "$(stamp_file "$1")" 2>/dev/null)
+  case "$last" in '' | *[!0-9]*) return 0 ;; esac
+  [ $((now - last)) -lt 0 ] || [ $((now - last)) -ge "$interval" ]
+}
 
 cat >/dev/null # the hook input is not needed
 
@@ -25,6 +50,8 @@ ok=()
 warnings=()
 for repo in "${targets[@]}"; do
   name=$(basename "$repo")
+  sync_due "$repo" || continue
+  printf '%s' "$now" >"$(stamp_file "$repo")" 2>/dev/null
   branch=$(reference_branch "$repo")
 
   if [ -n "$(git -C "$repo" status --porcelain 2>/dev/null)" ]; then
@@ -47,17 +74,26 @@ for repo in "${targets[@]}"; do
   ok+=("$name is up to date with $branch ($(git -C "$repo" log -1 --format='last change %cr, %h'))")
 done
 
+# Prompt mode: nothing was due, stay silent.
+if [ "$mode" = prompt ] && [ ${#ok[@]} -eq 0 ] && [ ${#warnings[@]} -eq 0 ]; then
+  exit 0
+fi
+
 context="Singulier workspace sync."
 for line in ${ok[@]+"${ok[@]}"}; do context="$context OK: $line."; done
 for line in ${warnings[@]+"${warnings[@]}"}; do context="$context WARNING: $line"; done
 if [ ${#warnings[@]} -gt 0 ]; then
   context="$context Tell the user about each warning in their language, in plain words, before answering."
 fi
-context="$context If the user seems lost or asks what you can do, offer /singulier:aide (French) or /singulier:help (English)."
+if [ "$mode" != prompt ]; then
+  context="$context If the user seems lost or asks what you can do, offer /singulier:aide (French) or /singulier:help (English)."
+fi
+event=SessionStart
+[ "$mode" = prompt ] && event=UserPromptSubmit
 
 printf '{'
 if [ ${#warnings[@]} -gt 0 ]; then
   printf '"systemMessage":"%s",' "$(json_escape "Singulier: ${warnings[*]}")"
 fi
-printf '"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"%s"}}\n' "$(json_escape "$context")"
+printf '"hookSpecificOutput":{"hookEventName":"%s","additionalContext":"%s"}}\n' "$event" "$(json_escape "$context")"
 exit 0

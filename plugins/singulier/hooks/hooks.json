@@ -17,6 +17,18 @@
         ]
       }
     ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/sync-repo.sh\" prompt",
+            "shell": "bash",
+            "timeout": 90
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash|Edit|Write|MultiEdit|NotebookEdit",
