@@ -26,11 +26,12 @@ Claude Code CLI.
 | --- | --- |
 | `help` / `aide` skills | `/singulier:help` (English) or `/singulier:aide` (French): what to ask, how to open a project, what Claude will not do, state of the local copy, who to contact. |
 | `setup-check` skill | Checks and repairs the computer setup (git, GitHub CLI, login, workspace) and clones projects. Run `/singulier:setup-check`. |
-| `new-ticket` skill | Step-by-step interview (problem, goal, done when, urgency) that turns a need into a well-built issue, in the [ticket-flow](https://github.com/Xavier-Cliquennois/claude-ticket-flow) shape. |
-| `github-tracking` skill | Issues and GitHub Projects: find, update, comment, status summaries, views. |
+| `new-ticket` skill | Step-by-step interview (problem, goal, done when, urgency) that turns a need into a well-built issue, in the [ticket-flow](https://github.com/Xavier-Cliquennois/claude-ticket-flow) shape. A need too big for one ticket is split under an epic with its wave table and Mermaid graph. |
+| `github-tracking` skill | Issues and GitHub Projects: find, update, comment, status summaries (epics included), checks waiting for the user and closing a ticket once they confirm it, views. |
 | `code-questions` skill | Explains how a project works, from its code and docs, for non-developers. |
 | `SessionStart` hook | Fast-forwards the clones of the workspace to their reference branch. |
 | `PreToolUse` hook | Keeps workspace clones read-only and blocks destructive commands. |
+| update band | A row above the prompt when a newer version is published, with a **Mettre à jour** button that updates the plugin in the open session. |
 
 Skills trigger on their own from what the user asks; they can also be called by
 name.

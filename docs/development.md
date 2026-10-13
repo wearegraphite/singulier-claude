@@ -6,8 +6,11 @@
 .claude-plugin/marketplace.json   marketplace catalogue (one plugin)
 plugins/singulier/
   .claude-plugin/plugin.json      plugin manifest and version
-  hooks/hooks.json                SessionStart and PreToolUse hooks
+  hooks/hooks.json                SessionStart and PreToolUse hooks, and the hooks module
+  hooks/register.tsx              hooks module: the update band's settings
+  hooks/update-band.tsx           update band (generic; settings in register.tsx)
   scripts/                        hook scripts (bash, macOS + Git Bash)
+  tests/update-band.test.tsx      update band tests (terminal and desktop)
   skills/<name>/SKILL.md          skills
 tests/run.sh                      end-to-end checks of the hook scripts
 docs/                             documentation
@@ -22,6 +25,12 @@ bash tests/run.sh
 ```
 
 Run it on macOS and on Windows (Git Bash) before a release.
+
+The update band (hooks module):
+
+```sh
+cd plugins/singulier && claude plugin test .
+```
 
 Plugin manifest and structure:
 
@@ -55,4 +64,4 @@ Do the bump before every push that changes `plugins/singulier/`, not only for bi
 How users get it:
 
 - **Auto-update** (`autoUpdate: true` on the marketplace): Claude Code refreshes the marketplace in the background a few minutes into a session; the new version loads at the next launch or after `/reload-plugins`. It needs stored GitHub credentials (`gh auth setup-git`) while the repository is private, and fails silently otherwise.
-- **Our own check**: once a day, the session-start hook compares the installed version with the one on `main` and has Claude tell the user to restart the app, or to run `/plugin marketplace update singulier` then `/reload-plugins`.
+- **Our own update band**: at session start and every 6 hours, a row above the prompt says a newer version is on `main` and updates it in place with one button (see [How it works](how-it-works.md#update-band)).

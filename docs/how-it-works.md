@@ -15,13 +15,30 @@
 
 The hook never blocks the session: any failure becomes a warning.
 
-## Plugin version check
+## Update band
 
-`scripts/version-check.sh`, run by the same hook, compares the installed
-`plugin.json` version with the one published on `main` of the repository named
-in `plugin.json` (`gh api`, 10 s timeout). The result is cached for a day in
-`CLAUDE_PLUGIN_DATA`. When a newer version exists, Claude tells the user how to
-update. Offline, logged out or rate-limited: no message, no error.
+`plugins/singulier/hooks/update-band.tsx`, a hooks module (Claude Code mods
+API) loaded with the plugin; `hooks/register.tsx` gives it this plugin's
+settings.
+
+- Only inside `~/Singulier`, like every hook of this plugin. Elsewhere it does
+  nothing, network included. `SINGULIER_WORKSPACE` does not move it: a test
+  workspace elsewhere gets no band.
+- At session start, then every 6 hours, it reads the `plugin.json` published
+  on `main` (raw GitHub, else `gh api` while the repository is private). A
+  session left open for days still sees a new version.
+- Newer than the installed one: a row above the prompt, in the terminal and
+  the desktop app, « ⬆ singulier X disponible [ Mettre à jour ] ». The button
+  runs `claude plugin marketplace update singulier`, `claude plugin update
+  singulier@singulier`, then `/reload-plugins` in the open session; a toast
+  confirms the new version. On failure the row shows the error and the
+  commands to type by hand.
+- Surfaces without the row (VS Code, mobile): Claude is told once per session
+  to give the user those commands.
+- Offline, logged out or rate-limited: nothing is shown, no error.
+
+A Claude Code without the mods API ignores the module: the plugin works as
+before, without the row.
 
 ## Guardrails
 

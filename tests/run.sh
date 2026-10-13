@@ -12,9 +12,8 @@ export GIT_AUTHOR_NAME=test GIT_AUTHOR_EMAIL=test@example.com
 export GIT_COMMITTER_NAME=test GIT_COMMITTER_EMAIL=test@example.com
 mkdir -p "$SINGULIER_WORKSPACE" "$tmp/outside" "$tmp/bin"
 
-# Stub gh: never reach GitHub, never write to the real cache. The version check
-# sees an empty answer unless FAKE_LATEST is set.
-printf '#!/bin/sh\n[ -n "$FAKE_LATEST" ] && echo "{\\"version\\": \\"$FAKE_LATEST\\"}"\nexit 0\n' >"$tmp/bin/gh"
+# Stub gh: never reach GitHub.
+printf '#!/bin/sh\nexit 0\n' >"$tmp/bin/gh"
 chmod +x "$tmp/bin/gh"
 export PATH="$tmp/bin:$PATH" CLAUDE_PLUGIN_DATA="$tmp/plugin-data"
 
@@ -71,22 +70,6 @@ contains "syncs every clone from the workspace root" "$out" "project is up to da
 
 out=$(sync "$tmp/outside")
 check "ignores folders outside the workspace" "" "$out"
-
-echo "== plugin version check"
-installed=$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$scripts/../.claude-plugin/plugin.json")
-versioned_sync() { FAKE_LATEST="$1" sync "$repo"; }
-
-out=$(versioned_sync "99.0.0")
-contains "warns when a newer plugin version is published" "$out" "installed $installed, latest 99.0.0"
-rm -rf "$tmp/plugin-data"
-out=$(versioned_sync "$installed")
-case "$out" in *outdated*) check "no warning when up to date" "none" "warning" ;; *) check "no warning when up to date" 0 0 ;; esac
-out=$(versioned_sync "99.0.0")
-case "$out" in *outdated*) check "checks GitHub at most once a day" "cached" "refetched" ;; *) check "checks GitHub at most once a day" 0 0 ;; esac
-rm -rf "$tmp/plugin-data"
-. "$scripts/version-check.sh"
-version_lt 0.9.0 0.10.0; check "compares versions numerically" 0 $?
-version_lt 1.2.0 1.2.0; check "equal versions are not outdated" 1 $?
 
 echo "== guard"
 guard "$repo" '{"tool_name":"Bash","tool_input":{"command":"git log --oneline -5"}}'; check "allows git log" 0 $?

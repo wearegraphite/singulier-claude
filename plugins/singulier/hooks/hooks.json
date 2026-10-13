@@ -1,5 +1,8 @@
 {
   "description": "Keeps Singulier workspace clones up to date and read-only.",
+  "modules": [
+    "./register.tsx"
+  ],
   "hooks": {
     "SessionStart": [
       {

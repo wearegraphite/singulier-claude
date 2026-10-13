@@ -7,4 +7,5 @@ members. Read `docs/development.md` before changing anything.
 - The plugin may be enabled for the whole organisation: every hook must do nothing outside the workspace folder.
 - Release = bump `version` in `plugins/singulier/.claude-plugin/plugin.json` only. Never add a `version` to the `marketplace.json` entry: `plugin.json` wins and the two drift.
 - **Bump that version before every push that changes `plugins/singulier/`**: Claude Code only ships a commit to users when the version changes, so an unbumped push never reaches them. `.claude/hooks/require-version-bump.sh` blocks such a push.
+- Test the update band (`plugins/singulier/hooks/`) with `cd plugins/singulier && claude plugin test .`.
 - Code and docs in English; commit descriptions in French (Conventional Commits).

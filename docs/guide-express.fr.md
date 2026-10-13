@@ -32,7 +32,9 @@ en écrivant comme à un collègue. Pas besoin de connaître GitHub.
 5. Écrivez votre demande, simplement :
    - **une question** : « Comment est calculé le prix d'un produit ? »
    - **un ticket** : « Crée un ticket : le bouton d'export ne fait rien sur la page clients. »
+   - **un gros sujet** : « Crée un épic pour la refonte de l'export. » Claude le découpe en plusieurs tickets regroupés dans un épic, avec un schéma de l'ordre dans lequel ils seront faits.
    - **l'avancement** : « Où en est-on sur l'intégration du paiement ? »
+   - **ce que vous devez vérifier** : « Qu'est-ce que je dois tester ? », puis « J'ai testé #380, c'est bon. » Claude ferme le ticket après votre accord.
 6. Claude vous montre le ticket **avant** de le créer : relisez-le, puis répondez « OK » ou dites ce qu'il faut changer.
 7. Vous avez donné une capture ou un fichier ? Claude vous demande lesquels mettre dans le ticket. Les images, c'est vous qui les ajoutez sur la page GitHub du ticket : Claude vous donne le lien, glissez-les dans la zone de commentaire en bas.
 8. Ticket créé : tapez `/clear` ou ouvrez un **nouveau chat** pour le sujet suivant. Une conversation trop longue rend Claude plus lent et moins précis. Rien n'est perdu : tout est dans le ticket.

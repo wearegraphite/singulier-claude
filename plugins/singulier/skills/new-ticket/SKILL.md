@@ -1,6 +1,6 @@
 ---
 name: new-ticket
-description: Guides a non-technical Singulier team member, one question at a time, from a vague need to a well-built GitHub issue - the problem today, the goal, how to know it is done, urgency - then checks the code, drafts the ticket in the ticket-flow shape developers deliver from, and creates it after a go-ahead. Use when the user wants to report a bug, ask for a change or a new feature, "créer un ticket", "ouvrir une issue", "signaler un problème", "faire une demande", or when code-questions ends with a change request.
+description: Guides a non-technical Singulier team member, one question at a time, from a vague need to a well-built GitHub issue - the problem today, the goal, how to know it is done, urgency - then checks the code, drafts the ticket in the ticket-flow shape developers deliver from, and creates it after a go-ahead. A need too big for one ticket becomes an epic (parent issue) with its sub-tickets, wave table and Mermaid graph. Use when the user wants to report a bug, ask for a change or a new feature, "créer un ticket", "ouvrir une issue", "signaler un problème", "faire une demande", "crée un épic", "un gros sujet en plusieurs tickets", "découpe cette demande", or when code-questions ends with a change request.
 ---
 
 # New ticket
@@ -77,6 +77,15 @@ one ticket per result the user will see. Each one must make sense on its own.
 If the split is not clear to you either, write one ticket and add, under
 « Contexte », « À découper par un développeur avant de commencer ».
 
+A split into two tickets or more also gets an **epic**: a parent issue that
+holds them together and shows their order (template in step 5).
+
+When the user asks for an epic outright (« crée un épic pour la refonte de
+l'export »), run the same interview at the level of the whole subject (the
+problem, the overall result, how to know the whole is done), then propose the
+split above and check each ticket with them. An epic with a single ticket is
+just a ticket: say so and write the ticket.
+
 ## 5. Draft
 
 Title: the finding or the outcome, concrete, with numbers when there are some
@@ -112,6 +121,53 @@ Ce que ce ticket ne résout pas.
 
 Leave out a section that has nothing to say, except « Ce qu'on veut » and
 « Fini quand ». « Fini quand » boxes must be checkable: no « ça marche bien ».
+
+### Epic (only when you split)
+
+Title: the overall result the user wants. Body, same rules (ticket-flow
+headings, keep them):
+
+````markdown
+## Pourquoi cet épic
+Le problème et le résultat qui dira que c'est atteint.
+
+## Vagues
+| Vague | Tickets | Attend | Pourquoi | Statut |
+|---|---|---|---|---|
+| 1 | #a | rien | décider / comprendre d'abord | |
+| 2 | #b, #c | #a | <raison> | |
+
+Chemin critique : #a → #b.
+Règle : deux tickets qui touchent les mêmes fichiers ne sont jamais dans la même vague.
+
+```mermaid
+flowchart LR
+  ta["#a"] --> tb["#b"]
+  ta --> tc["#c"]
+  classDef enCours fill:#fde68a,stroke:#b45309,color:#000
+  classDef aTester fill:#bfdbfe,stroke:#1d4ed8,color:#000
+  classDef fini fill:#bbf7d0,stroke:#15803d,color:#000
+  classDef bloque fill:#fecaca,stroke:#b91c1c,color:#000
+```
+Légende : 🟡 en cours · 🧪 livré, reste une vérification à la main · ✅ fini · ⛔ bloqué
+
+## Hors de l'épic, exprès
+## Fini quand
+- [ ] critère de l'épic lui-même (pas « tous les sous-tickets fermés »)
+````
+
+- Never list the tickets in the body: they become sub-issues of the epic,
+  which GitHub already shows under it.
+- Waves follow the split order: the decision or investigation ticket first,
+  then the tickets that wait for it. Tickets that do not depend on each other
+  and do not share files go in the same wave.
+- Always both the table and the graph. Graph: one node per ticket, id
+  `t<N>`, label `"#<N>"`, one arrow per "waits for" (the awaited ticket → the
+  one that waits). Leave « Statut » empty and keep the four `classDef` lines
+  and the legend: ticket-flow's `run-epic` fills them in (🟡 en cours, 🧪 livré
+  à tester, ✅ fini, ⛔ bloqué) as developers deliver.
+- The real numbers only exist once the tickets are created: show the draft
+  with `#a`, `#b`... and replace them in step 7.
 
 Labels: a type label that exists in the repository (bug, enhancement...), and
 the mandatory labels of the `## Workflow` section if there is one, except
@@ -157,12 +213,19 @@ How each kept item gets in, to tell the user when you ask:
 2. Create it: write the body to a temporary file, then
    `gh issue create --title ... --body-file <file> --label ...`. Read the
    issue number and link from the output.
+   With a split: create the tickets first, then the epic with their real
+   numbers in its waves table and graph (label `epic` if the repository has it),
+   then attach each ticket as a sub-issue of the epic and add the "waits for"
+   links:
+   `gh api graphql -f query='mutation{addSubIssue(input:{issueId:"<epic id>",subIssueId:"<ticket id>"}){issue{number}}}'`,
+   same with `addBlockedBy(input:{issueId:"<waiting ticket id>",blockingIssueId:"<awaited ticket id>"})`;
+   node ids come from `gh issue view <n> --json id`.
 3. If the project has a board, add the issue
    (`gh project item-add <n> --owner wearegraphite --url <issue url>`) and set
-   its status to the "to do" option and the fields the `## Workflow` section
+   its status (the epic's too) to the "to do" option and the fields the `## Workflow` section
    lists (see the github-tracking skill for the commands).
 4. Give the user the link and a one-line summary. If you split the need, list
-   every ticket created.
+   every ticket created and the epic first.
 5. If images or files are to be added, say it in a block of its own, so it
    cannot be missed:
 

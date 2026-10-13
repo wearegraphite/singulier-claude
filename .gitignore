@@ -3,3 +3,7 @@
 
 # Personal briefs used to generate presentation assets, never committed
 presentation-brief*.md
+
+# Laid by Claude Code when it loads the hooks module
+plugins/*/.claude-plugin/types/
+plugins/*/tsconfig.json
