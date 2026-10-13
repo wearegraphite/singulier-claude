@@ -1,6 +1,6 @@
 ---
 name: aide
-description: Version française de l'aide du plugin Singulier. Explique à un membre non technique de l'équipe ce que Claude peut faire pour lui, comment ouvrir un projet, ce que Claude ne fait pas, l'état de sa copie et qui contacter. Use when the user types /singulier:aide or asks "aide", "que peux-tu faire ?", "comment ça marche ?", "je suis perdu", "par où commencer ?".
+description: Version française de l'aide du plugin Singulier. Explique à un membre non technique de l'équipe ce que Claude peut faire pour lui, comment ouvrir un projet, ce que Claude ne fait pas, l'état de sa copie et qui contacter. Use when the user types /product-desk:aide or asks "aide", "que peux-tu faire ?", "comment ça marche ?", "je suis perdu", "par où commencer ?".
 ---
 
 # Aide

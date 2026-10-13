@@ -55,9 +55,9 @@ Steps, in order. Announce each step in one sentence, then do it.
    On Windows, if you installed git or gh: tell me to fully quit the Claude app, reopen it and paste this message again. Stop there.
 4. GitHub login: if `gh auth status` fails or does not show the `project` scope, run `gh auth login --web -h github.com -p https -s project` in the background, read its output, give me the 8-character code and the link https://github.com/login/device, and wait until I tell you it is confirmed. Check with `gh auth status`, then run `gh auth setup-git`.
 5. Access: run `gh repo list wearegraphite --limit 100`. If the list is empty, give me my GitHub username (`gh api user --jq .login`), tell me to send it to the project admin, and stop.
-6. Singulier plugin: if you already have `singulier:` skills, skip. Otherwise run `claude plugin marketplace add wearegraphite/singulier-claude`, then `claude plugin install singulier@singulier --scope user`, then `claude plugin list` to check `singulier` is installed. If the `claude` command is not found, look for the Claude Code program installed by the app and use its full path. If it fails, show me the exact error and stop: do not edit the settings by hand.
+6. product-desk plugin: if you already have `product-desk:` skills, skip. Otherwise run `claude plugin marketplace add wearegraphite/singulier-claude`, then `claude plugin install product-desk@singulier --scope user`, then `claude plugin list` to check `product-desk` is installed. If the `claude` command is not found, look for the Claude Code program installed by the app and use its full path. If it fails, show me the exact error and stop: do not edit the settings by hand.
 7. Projects: create the `Singulier` folder in my home folder. Show me the projects from step 5 with simple names, ask which ones I want, and clone each with `gh repo clone wearegraphite/<project> "<Singulier folder>/<project>"`.
-8. End: sum up in three lines what is ready, then tell me to fully quit the Claude app, reopen it, and check that "singulier" appears under the + > Plugins menu.
+8. End: sum up in three lines what is ready, then tell me to fully quit the Claude app, reopen it, and check that "product-desk" appears in Settings > Plugins (by clicking my name, at the bottom left).
 
 If a step fails twice, stop and tell me what to send to the project admin.
 ```
@@ -70,6 +70,21 @@ During the setup:
 
 ---
 
+## Step 3: check the plugin is installed
+
+1. Click **your name**, at the very bottom left of the window.
+2. Click **Settings**.
+
+   ![Account menu: Settings](images/settings-menu.png)
+
+3. In the left column, under **Customisation**, click **Plugins**.
+
+   ![Settings: Plugins](images/settings-plugins.png)
+
+4. **product-desk** must be in the list. If not, see "Common problems".
+
+---
+
 ## Every day
 
 1. Open the Claude app and click **`</>`**.
@@ -79,7 +94,7 @@ During the setup:
 The project updates itself at each new session: you always see the current
 version.
 
-Not sure what to ask? Type **`/singulier:help`**.
+Not sure what to ask? Type **`/product-desk:help`**.
 
 Examples:
 
@@ -106,7 +121,7 @@ Good to know:
 | No `</>` icon | Update the Claude app (app menu) or reinstall it from https://claude.ai/download. |
 | Claude says it cannot run commands | You are in the chat (bubble): click `</>`. |
 | Claude says it runs on `Linux` or in the cloud | You kept "Default". Open a **new chat**, click **Default** and choose **Local**. |
-| "singulier" does not appear under **+ > Plugins** | Fully quit the app and reopen it. If still missing, open a new chat in **Local** and ask: "check my singulier plugin installation". |
+| "product-desk" does not appear in **Settings > Plugins** | Fully quit the app and reopen it. If still missing, open a new chat in **Local** and ask: "check my product-desk plugin installation". |
 | Claude says the project could not be updated | Check your internet connection. If it persists, ask it to "check my installation". |
 | Claude says you have no access to a project | Send your GitHub username to the project admin. |
 | Anything else | Send a screenshot to the project admin. |

@@ -2,7 +2,7 @@
 
 ## Keeping clones up to date
 
-`plugins/singulier/scripts/sync-repo.sh` runs:
+`plugins/product-desk/scripts/sync-repo.sh` runs:
 
 - when a session starts or resumes (`SessionStart`): always;
 - before each user message (`UserPromptSubmit`, `prompt` mode): only for a clone whose last sync attempt is older than 4 hours (`SINGULIER_SYNC_HOURS` to change it). Otherwise it does nothing and stays silent, so a session left open for days still reads current code without a network call at every message.
@@ -22,7 +22,7 @@ The hook never blocks the session or the message: any failure becomes a warning.
 
 ## Update band
 
-`plugins/singulier/hooks/update-band.tsx`, a hooks module (Claude Code mods
+`plugins/product-desk/hooks/update-band.tsx`, a hooks module (Claude Code mods
 API) loaded with the plugin; `hooks/register.tsx` gives it this plugin's
 settings.
 
@@ -33,9 +33,9 @@ settings.
   on `main` (raw GitHub, else `gh api` while the repository is private). A
   session left open for days still sees a new version.
 - Newer than the installed one: a row above the prompt, in the terminal and
-  the desktop app, « ⬆ singulier X disponible [ Mettre à jour ] ». The button
+  the desktop app, « ⬆ product-desk X disponible [ Mettre à jour ] ». The button
   runs `claude plugin marketplace update singulier`, `claude plugin update
-  singulier@singulier`, then `/reload-plugins` in the open session; a toast
+  product-desk@singulier`, then `/reload-plugins` in the open session; a toast
   confirms the new version. On failure the row shows the error and the
   commands to type by hand.
 - Surfaces without the row (VS Code, mobile): Claude is told once per session
@@ -47,7 +47,7 @@ before, without the row.
 
 ## Guardrails
 
-`plugins/singulier/scripts/guard.sh` runs before each Bash, Edit, Write,
+`plugins/product-desk/scripts/guard.sh` runs before each Bash, Edit, Write,
 MultiEdit and NotebookEdit tool call, only for sessions inside the workspace.
 
 Blocked unless the clone has `singulier.readonly=false`:

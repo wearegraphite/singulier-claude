@@ -1,6 +1,6 @@
 ---
 name: help
-description: Explains to a non-technical Singulier team member what Claude can do for them with this plugin, how to open a project, what Claude will not do, the state of their local copy, and who to contact. Use when the user types /singulier:help or asks "help", "what can you do?", "how does this work?", "I am lost", "where do I start?". French speakers have the same content under /singulier:aide.
+description: Explains to a non-technical Singulier team member what Claude can do for them with this plugin, how to open a project, what Claude will not do, the state of their local copy, and who to contact. Use when the user types /product-desk:help or asks "help", "what can you do?", "how does this work?", "I am lost", "where do I start?". French speakers have the same content under /product-desk:aide.
 ---
 
 # Help

@@ -59,7 +59,7 @@ for repo in "${targets[@]}"; do
     continue
   fi
   if ! git_net -C "$repo" fetch --quiet origin "$branch" 2>/dev/null; then
-    warnings+=("$name: could not reach GitHub (offline or not logged in), the local copy may be outdated. Run /singulier:setup-check.")
+    warnings+=("$name: could not reach GitHub (offline or not logged in), the local copy may be outdated. Run /product-desk:setup-check.")
     continue
   fi
   current=$(git -C "$repo" symbolic-ref --quiet --short HEAD 2>/dev/null)
@@ -86,7 +86,7 @@ if [ ${#warnings[@]} -gt 0 ]; then
   context="$context Tell the user about each warning in their language, in plain words, before answering."
 fi
 if [ "$mode" != prompt ]; then
-  context="$context If the user seems lost or asks what you can do, offer /singulier:aide (French) or /singulier:help (English)."
+  context="$context If the user seems lost or asks what you can do, offer /product-desk:aide (French) or /product-desk:help (English)."
 fi
 event=SessionStart
 [ "$mode" = prompt ] && event=UserPromptSubmit

@@ -6,7 +6,7 @@ export const register: Register = on => {
   registerUpdateBand(on, {
     marketplace: 'singulier',
     repo: 'wearegraphite/singulier-claude',
-    manifestPath: 'plugins/singulier/.claude-plugin/plugin.json',
+    manifestPath: 'plugins/product-desk/.claude-plugin/plugin.json',
     // Like every hook of this plugin: nothing outside the workspace folder.
     workspace: { dir: '~/Singulier' },
   })

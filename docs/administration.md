@@ -25,12 +25,14 @@ Organization settings > Claude Code > Managed settings):
     }
   },
   "enabledPlugins": {
-    "singulier@singulier": true
+    "product-desk@singulier": true
   }
 }
 ```
 
 Points to know:
+
+- Up to 0.8.0 the plugin was `singulier@singulier`. If managed settings still enable that name, replace it with `product-desk@singulier`. See [Installation](installation.md#renamed-from-singulier-090).
 
 - `autoUpdate: true` makes Claude Code fetch new plugin versions in the background (off by default for non-Anthropic marketplaces). Set in managed settings, users cannot turn it off.
 
@@ -42,7 +44,7 @@ Points to know:
 
 By default a clone follows the GitHub default branch of its repository. To make
 everyone follow another branch, add a line to
-`plugins/singulier/config/branches.txt` and release the plugin:
+`plugins/product-desk/config/branches.txt` and release the plugin:
 
 ```
 my-project dev

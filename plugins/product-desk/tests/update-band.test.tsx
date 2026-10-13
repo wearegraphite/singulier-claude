@@ -3,7 +3,7 @@ import type { On } from 'claude-code'
 
 const SURFACES = ['terminal', 'desktop'] as const
 const BAND = {
-  plugin: 'singulier',
+  plugin: 'product-desk',
   component: 'AbovePrompt',
   props: { hasSurvey: false, isWorking: false, maxRows: 10, bodyColumns: 100 },
   viewport: { columns: 120, rows: 30 },
@@ -12,7 +12,7 @@ const BAND = {
 /** The engine beneath the plugin: a published version and where the session runs. */
 function engine(on: On, published: string, root: string) {
   on('http.fetch', () => ({ value: { status: 200, ok: true, headers: {}, text: `{"version":"${published}"}` } }))
-  on('fs.read', () => ({ value: '{"name":"singulier","version":"0.7.0"}' }))
+  on('fs.read', () => ({ value: '{"name":"product-desk","version":"0.7.0"}' }))
   on('env.get', ($, e) => ({ value: e.name === 'HOME' ? '/Users/u' : undefined }))
   on('session.root', () => ({ value: root }))
   on('ui.render', ($, e) => {

@@ -3,7 +3,7 @@
 # Usage: bash tests/run.sh   (macOS or Windows Git Bash)
 set -u
 
-scripts="$(cd "$(dirname "$0")/../plugins/singulier/scripts" && pwd)"
+scripts="$(cd "$(dirname "$0")/../plugins/product-desk/scripts" && pwd)"
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 

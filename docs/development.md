@@ -4,7 +4,7 @@
 
 ```
 .claude-plugin/marketplace.json   marketplace catalogue (one plugin)
-plugins/singulier/
+plugins/product-desk/
   .claude-plugin/plugin.json      plugin manifest and version
   hooks/hooks.json                SessionStart and PreToolUse hooks, and the hooks module
   hooks/register.tsx              hooks module: the update band's settings
@@ -29,20 +29,20 @@ Run it on macOS and on Windows (Git Bash) before a release.
 The update band (hooks module):
 
 ```sh
-cd plugins/singulier && claude plugin test .
+cd plugins/product-desk && claude plugin test .
 ```
 
 Plugin manifest and structure:
 
 ```sh
-claude plugin validate plugins/singulier
+claude plugin validate plugins/product-desk
 claude plugin validate .
 ```
 
 In a real session, without installing:
 
 ```sh
-claude --plugin-dir plugins/singulier
+claude --plugin-dir plugins/product-desk
 ```
 
 Open it inside a workspace clone to exercise the hooks; set
@@ -56,10 +56,10 @@ Open it inside a workspace clone to exercise the hooks; set
 
 ## Releasing
 
-1. Bump `version` in `plugins/singulier/.claude-plugin/plugin.json`, and only there: Claude Code takes the version from `plugin.json` and only ships a commit to users when that version changes. Do not put a `version` in the `marketplace.json` entry.
+1. Bump `version` in `plugins/product-desk/.claude-plugin/plugin.json`, and only there: Claude Code takes the version from `plugin.json` and only ships a commit to users when that version changes. Do not put a `version` in the `marketplace.json` entry.
 2. Merge to `main`.
 
-Do the bump before every push that changes `plugins/singulier/`, not only for big releases: an unbumped push never reaches users. A project hook (`.claude/settings.json` → `.claude/hooks/require-version-bump.sh`) blocks a `git push` run by Claude when files under `plugins/singulier/` changed since the upstream branch and the version did not. It does not cover pushes typed by hand.
+Do the bump before every push that changes `plugins/product-desk/`, not only for big releases: an unbumped push never reaches users. A project hook (`.claude/settings.json` → `.claude/hooks/require-version-bump.sh`) blocks a `git push` run by Claude when files under `plugins/product-desk/` changed since the upstream branch and the version did not. It does not cover pushes typed by hand.
 
 How users get it:
 

@@ -25,7 +25,18 @@ en écrivant comme à un collègue. Pas besoin de connaître GitHub.
 7. Laissez Claude travailler. Quand il vous le demande :
    - cliquez sur **Autoriser** ;
    - tapez le code qu'il vous donne sur la page GitHub qui s'ouvre, puis répondez « c'est fait ».
-8. À la fin, **quittez complètement l'application Claude et rouvrez-la**, puis vérifiez que **singulier** apparaît dans **+ > Plugins**.
+8. À la fin, **quittez complètement l'application Claude et rouvrez-la**.
+9. Vérifiez que le plugin est installé :
+   1. Cliquez sur **votre nom**, tout en bas à gauche de la fenêtre.
+   2. Cliquez sur **Paramètres**.
+
+      ![Menu du compte : Paramètres](images/settings-menu.png)
+
+   3. Dans la colonne de gauche, rubrique **Personnalisation**, cliquez sur **Plugins**.
+
+      ![Paramètres : Plugins](images/settings-plugins.png)
+
+   4. **product-desk** doit apparaître dans la liste. Sinon, voir les [problèmes fréquents](getting-started.fr.md#problèmes-fréquents).
 
 ---
 
@@ -48,6 +59,6 @@ en écrivant comme à un collègue. Pas besoin de connaître GitHub.
 
 ---
 
-**Perdu ?** Tapez `/singulier:aide` dans le chat.
+**Perdu ?** Tapez `/product-desk:aide` dans le chat.
 
 **Bloqué ?** Envoyez une capture d'écran à l'administrateur du projet.

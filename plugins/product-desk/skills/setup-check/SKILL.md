@@ -31,7 +31,7 @@ Run each check, report a short status line, fix what you can, then move on.
    - Windows: `winget install --id GitHub.cli -e --accept-source-agreements --accept-package-agreements`, then the user must fully quit and reopen the Claude app.
 4. **GitHub login and Projects permission**: `gh auth status` must succeed and list the `project` scope. Otherwise run `gh auth login --web -h github.com -p https -s project` in the background, read its output, give the user the 8-character code and https://github.com/login/device, wait for them to confirm, then check `gh auth status` again. This works without a terminal.
 5. **git uses the GitHub login**: run `gh auth setup-git` (safe to run again).
-6. **Plugin settings**: nothing to check if these skills are loaded. If the user's Claude settings lack the Singulier marketplace (for example on a fresh machine), the getting-started guide explains the settings to add.
+6. **Plugin settings**: nothing to check if these skills are loaded. Otherwise (for example on a fresh machine), in a Local session: `claude plugin marketplace add wearegraphite/singulier-claude`, then `claude plugin install product-desk@singulier --scope user`, then `claude plugin list`. An old `singulier@singulier` install is replaced as `docs/installation.md` explains (uninstall it first).
 7. **Organisation access**: `gh repo list wearegraphite --limit 50`. An empty list or an error means the project admin has not added the user's GitHub account yet: tell them to send their GitHub username to the admin.
 8. **Workspace**: create the folder if it does not exist (`mkdir -p`), then list the clones it holds.
 

@@ -25,7 +25,18 @@ you would to a colleague. No need to know GitHub.
 7. Let Claude work. When it asks you:
    - click **Allow**;
    - type the code it gives you on the GitHub page that opens, then reply "done".
-8. At the end, **fully quit the Claude app and reopen it**, then check that **singulier** appears under **+ > Plugins**.
+8. At the end, **fully quit the Claude app and reopen it**.
+9. Check that the plugin is installed:
+   1. Click **your name**, at the very bottom left of the window.
+   2. Click **Settings**.
+
+      ![Account menu: Settings](images/settings-menu.png)
+
+   3. In the left column, under **Customisation**, click **Plugins**.
+
+      ![Settings: Plugins](images/settings-plugins.png)
+
+   4. **product-desk** must be in the list. If not, see the [common problems](getting-started.en.md#common-problems).
 
 ---
 
@@ -48,6 +59,6 @@ you would to a colleague. No need to know GitHub.
 
 ---
 
-**Lost?** Type `/singulier:help` in the chat.
+**Lost?** Type `/product-desk:help` in the chat.
 
 **Stuck?** Send a screenshot to the project admin.

@@ -11,7 +11,7 @@ project_dir=$(to_unix "${CLAUDE_PROJECT_DIR:-$PWD}")
 in_workspace "$project_dir" || exit 0
 
 block() {
-  echo "Blocked by the Singulier plugin: $1 Do not retry or work around it. Explain this to the user in plain words; if they want a change in the project, offer to write a GitHub issue instead." >&2
+  echo "Blocked by the product-desk plugin: $1 Do not retry or work around it. Explain this to the user in plain words; if they want a change in the project, offer to write a GitHub issue instead." >&2
   exit 2
 }
 

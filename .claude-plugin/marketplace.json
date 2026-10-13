@@ -8,8 +8,8 @@
   },
   "plugins": [
     {
-      "name": "singulier",
-      "source": "./plugins/singulier",
+      "name": "product-desk",
+      "source": "./plugins/product-desk",
       "description": "Helps non-technical team members query project code, manage GitHub issues and Projects, and keep local clones up to date."
     }
   ]

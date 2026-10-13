@@ -55,9 +55,9 @@ Parle-moi en français, simplement : je ne suis pas technique. Configure mon ord
    Sur Windows, si tu as installé git ou gh : dis-moi de quitter complètement l'application Claude, de la rouvrir et de recoller ce message. Arrête-toi là.
 4. Connexion GitHub : si `gh auth status` échoue ou n'affiche pas le droit `project`, lance en arrière-plan `gh auth login --web -h github.com -p https -s project`, lis sa sortie, donne-moi le code à 8 caractères et le lien https://github.com/login/device, et attends que je te dise que c'est validé. Vérifie avec `gh auth status`, puis lance `gh auth setup-git`.
 5. Accès : lance `gh repo list wearegraphite --limit 100`. Si la liste est vide, donne-moi mon nom d'utilisateur GitHub (`gh api user --jq .login`), dis-moi de l'envoyer à l'administrateur du projet, et arrête-toi.
-6. Plugin Singulier : si tu as déjà des skills `singulier:`, passe. Sinon lance `claude plugin marketplace add wearegraphite/singulier-claude`, puis `claude plugin install singulier@singulier --scope user`, puis `claude plugin list` pour vérifier que `singulier` est bien installé. Si la commande `claude` est introuvable, cherche le programme Claude Code installé par l'application et utilise son chemin complet. Si ça échoue, montre-moi l'erreur exacte et arrête-toi : n'édite pas les réglages à la main.
+6. Plugin product-desk : si tu as déjà des skills `product-desk:`, passe. Sinon lance `claude plugin marketplace add wearegraphite/singulier-claude`, puis `claude plugin install product-desk@singulier --scope user`, puis `claude plugin list` pour vérifier que `product-desk` est bien installé. Si la commande `claude` est introuvable, cherche le programme Claude Code installé par l'application et utilise son chemin complet. Si ça échoue, montre-moi l'erreur exacte et arrête-toi : n'édite pas les réglages à la main.
 7. Projets : crée le dossier `Singulier` dans mon dossier personnel. Montre-moi la liste des projets de l'étape 5 avec des noms simples, demande-moi lesquels je veux, et clone chacun avec `gh repo clone wearegraphite/<projet> "<dossier Singulier>/<projet>"`.
-8. Fin : résume en trois lignes ce qui est prêt, puis dis-moi de quitter complètement l'application Claude, de la rouvrir, et de vérifier que « singulier » apparaît dans le menu + > Plugins.
+8. Fin : résume en trois lignes ce qui est prêt, puis dis-moi de quitter complètement l'application Claude, de la rouvrir, et de vérifier que « product-desk » apparaît dans Paramètres > Plugins (en cliquant sur mon nom, en bas à gauche).
 
 Si une étape échoue deux fois, arrête-toi et dis-moi quoi envoyer à l'administrateur du projet.
 ```
@@ -70,6 +70,21 @@ Pendant la configuration :
 
 ---
 
+## Étape 3 : vérifier que le plugin est installé
+
+1. Cliquez sur **votre nom**, tout en bas à gauche de la fenêtre.
+2. Cliquez sur **Paramètres**.
+
+   ![Menu du compte : Paramètres](images/settings-menu.png)
+
+3. Dans la colonne de gauche, rubrique **Personnalisation**, cliquez sur **Plugins**.
+
+   ![Paramètres : Plugins](images/settings-plugins.png)
+
+4. **product-desk** doit apparaître dans la liste. Sinon, voir « Problèmes fréquents ».
+
+---
+
 ## Au quotidien
 
 1. Ouvrez l'application Claude et cliquez sur **`</>`**.
@@ -79,7 +94,7 @@ Pendant la configuration :
 Le projet se met à jour tout seul à chaque nouvelle session : vous voyez toujours
 la version actuelle.
 
-Vous ne savez plus quoi demander ? Tapez **`/singulier:aide`**.
+Vous ne savez plus quoi demander ? Tapez **`/product-desk:aide`**.
 
 Exemples de demandes :
 
@@ -106,7 +121,7 @@ Ce qu'il faut savoir :
 | Vous ne voyez pas l'icône `</>` | Mettez à jour l'application Claude (menu de l'application) ou réinstallez-la depuis https://claude.ai/download. |
 | Claude dit qu'il ne peut pas lancer de commandes | Vous êtes dans le chat (bulle) : cliquez sur `</>`. |
 | Claude dit qu'il tourne sur `Linux` ou dans le cloud | Vous avez gardé « Default ». Ouvrez un **nouveau chat**, cliquez sur **Default** et choisissez **Local**. |
-| « singulier » n'apparaît pas dans **+ > Plugins** | Quittez complètement l'application et rouvrez-la. Sinon, ouvrez un nouveau chat en **Local** et demandez : « vérifie mon installation du plugin singulier ». |
+| « product-desk » n'apparaît pas dans **Paramètres > Plugins** | Quittez complètement l'application et rouvrez-la. Sinon, ouvrez un nouveau chat en **Local** et demandez : « vérifie mon installation du plugin product-desk ». |
 | Claude dit que le projet n'a pas pu être mis à jour | Vérifiez votre connexion internet. Si ça persiste, demandez-lui « vérifie mon installation ». |
 | Claude dit que vous n'avez pas accès à un projet | Envoyez votre nom d'utilisateur GitHub à l'administrateur du projet. |
 | Autre chose | Envoyez une capture d'écran à l'administrateur du projet. |
