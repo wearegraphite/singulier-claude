@@ -106,7 +106,7 @@ ticket-flow headings, keep them so the developers' tools can read the ticket):
 ## Contexte
 Le problème aujourd'hui : quoi, où, pour qui, depuis quand, à quelle fréquence.
 Pour un bug : étapes pour reproduire, résultat obtenu, résultat attendu.
-Créé par : @<login>, le <date> : à contacter si quelque chose n'est pas clair.
+Créé par : @<login>, le <date>.
 Demandé par : <rôle ou personne, si ce n'est pas la même>. Urgence : <bloquant / avant le JJ/MM / quand possible>.
 
 ## Ce qu'on veut
@@ -142,7 +142,7 @@ headings, keep them):
 ````markdown
 ## Pourquoi cet épic
 Le problème et le résultat qui dira que c'est atteint.
-Créé par : @<login>, le <date> : à contacter si quelque chose n'est pas clair.
+Créé par : @<login>, le <date>.
 
 ## Vagues
 | Vague | Tickets | Attend | Pourquoi | Statut |

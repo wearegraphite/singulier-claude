@@ -1,6 +1,6 @@
 {
   "name": "product-desk",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Helps non-technical team members query project code, manage GitHub issues and Projects, and keep local clones up to date.",
   "author": {
     "name": "Singulier"
