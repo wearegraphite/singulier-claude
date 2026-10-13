@@ -29,7 +29,13 @@ vous dit quand cliquer. Comptez 15 à 30 minutes, une seule fois.
    ![Bouton Code dans l'application Claude](images/code-tab-toggle.png)
 
    Vous êtes dans **Claude Code** : c'est le mode où Claude peut travailler sur votre ordinateur. La bulle à gauche est le chat habituel, il ne peut pas faire la configuration.
-3. Démarrez une nouvelle session. Si Claude vous demande de choisir un dossier, prenez votre dossier **Documents**.
+3. Cliquez sur **nouveau chat**.
+4. **Choisissez « Local ».** Par défaut, Claude travaille dans le *cloud* (bouton **Default**, icône nuage) : il tourne alors sur un serveur Anthropic et ne peut rien installer sur votre ordinateur. Cliquez sur **Default**, puis sur **Local**.
+
+   ![Menu d'environnement : choisir Local](images/environment-local.png)
+
+   Si « Local » affiche un bouton **Télécharger**, vous êtes dans le navigateur : installez et ouvrez l'application Claude (https://claude.ai/download).
+5. Cliquez sur **Sélectionner un dépôt…**, puis choisissez votre dossier **Documents**.
 
 ---
 
@@ -42,15 +48,16 @@ GitHub), collez-le dans Claude Code et envoyez.
 Parle-moi en français, simplement : je ne suis pas technique. Configure mon ordinateur pour travailler sur les projets Singulier. Lance toi-même toutes les commandes. Ne me demande d'agir que quand c'est indispensable (cliquer dans un installateur, valider dans le navigateur), une chose à la fois, en me disant exactement où cliquer.
 
 Étapes, dans l'ordre. Annonce chaque étape en une phrase, puis fais-la.
+0. Environnement : lance `uname -s`. Si le résultat est `Linux`, tu tournes dans le cloud et pas sur mon ordinateur : dis-moi de démarrer un nouveau chat en choisissant « Local » (pas « Default »), et arrête-toi.
 1. Système : détecte macOS ou Windows.
 2. git : vérifie `git --version`. S'il manque : sur macOS lance `xcode-select --install` et dis-moi de cliquer sur « Installer » dans la fenêtre qui s'ouvre, puis attends que j'aie fini ; sur Windows lance `winget install --id Git.Git -e --accept-source-agreements --accept-package-agreements`.
 3. GitHub CLI : vérifie `gh --version`. S'il manque : sur macOS télécharge le fichier `gh_*_macOS_universal.pkg` de la dernière version (https://api.github.com/repos/cli/cli/releases/latest), ouvre-le avec `open` et guide-moi dans l'installateur (il demandera le mot de passe de l'ordinateur) ; sur Windows lance `winget install --id GitHub.cli -e --accept-source-agreements --accept-package-agreements`.
    Sur Windows, si tu as installé git ou gh : dis-moi de quitter complètement l'application Claude, de la rouvrir et de recoller ce message. Arrête-toi là.
 4. Connexion GitHub : si `gh auth status` échoue ou n'affiche pas le droit `project`, lance en arrière-plan `gh auth login --web -h github.com -p https -s project`, lis sa sortie, donne-moi le code à 8 caractères et le lien https://github.com/login/device, et attends que je te dise que c'est validé. Vérifie avec `gh auth status`, puis lance `gh auth setup-git`.
 5. Accès : lance `gh repo list wearegraphite --limit 100`. Si la liste est vide, donne-moi mon nom d'utilisateur GitHub (`gh api user --jq .login`), dis-moi de l'envoyer à l'administrateur du projet, et arrête-toi.
-6. Plugin Singulier : si tu n'as pas déjà de skills `singulier:`, ajoute dans mes réglages Claude utilisateur (`settings.json` du dossier de configuration Claude, en général `~/.claude/` ; fusionne, n'écrase rien) : dans `extraKnownMarketplaces`, la clé `singulier` avec `{"source": {"source": "github", "repo": "wearegraphite/singulier-claude"}, "autoUpdate": true}` ; dans `enabledPlugins`, `"singulier@singulier": true`.
+6. Plugin Singulier : si tu as déjà des skills `singulier:`, passe. Sinon lance `claude plugin marketplace add wearegraphite/singulier-claude`, puis `claude plugin install singulier@singulier --scope user`, puis `claude plugin list` pour vérifier que `singulier` est bien installé. Si la commande `claude` est introuvable, cherche le programme Claude Code installé par l'application et utilise son chemin complet. Si ça échoue, montre-moi l'erreur exacte et arrête-toi : n'édite pas les réglages à la main.
 7. Projets : crée le dossier `Singulier` dans mon dossier personnel. Montre-moi la liste des projets de l'étape 5 avec des noms simples, demande-moi lesquels je veux, et clone chacun avec `gh repo clone wearegraphite/<projet> "<dossier Singulier>/<projet>"`.
-8. Fin : résume en trois lignes ce qui est prêt, puis dis-moi de quitter complètement l'application Claude et de la rouvrir.
+8. Fin : résume en trois lignes ce qui est prêt, puis dis-moi de quitter complètement l'application Claude, de la rouvrir, et de vérifier que « singulier » apparaît dans le menu + > Plugins.
 
 Si une étape échoue deux fois, arrête-toi et dis-moi quoi envoyer à l'administrateur du projet.
 ```
@@ -66,7 +73,7 @@ Pendant la configuration :
 ## Au quotidien
 
 1. Ouvrez l'application Claude et cliquez sur **`</>`**.
-2. Démarrez une session et choisissez le dossier du projet : votre dossier personnel, puis **Singulier**, puis le nom du projet.
+2. Cliquez sur **nouveau chat**, choisissez **Local** (et non « Default »), puis **Sélectionner un dépôt…** : votre dossier personnel, puis **Singulier**, puis le nom du projet.
 3. Posez votre question, en français, comme à un collègue.
 
 Le projet se met à jour tout seul à chaque nouvelle session : vous voyez toujours
@@ -98,6 +105,8 @@ Ce qu'il faut savoir :
 | --- | --- |
 | Vous ne voyez pas l'icône `</>` | Mettez à jour l'application Claude (menu de l'application) ou réinstallez-la depuis https://claude.ai/download. |
 | Claude dit qu'il ne peut pas lancer de commandes | Vous êtes dans le chat (bulle) : cliquez sur `</>`. |
+| Claude dit qu'il tourne sur `Linux` ou dans le cloud | Vous avez gardé « Default ». Ouvrez un **nouveau chat**, cliquez sur **Default** et choisissez **Local**. |
+| « singulier » n'apparaît pas dans **+ > Plugins** | Quittez complètement l'application et rouvrez-la. Sinon, ouvrez un nouveau chat en **Local** et demandez : « vérifie mon installation du plugin singulier ». |
 | Claude dit que le projet n'a pas pu être mis à jour | Vérifiez votre connexion internet. Si ça persiste, demandez-lui « vérifie mon installation ». |
 | Claude dit que vous n'avez pas accès à un projet | Envoyez votre nom d'utilisateur GitHub à l'administrateur du projet. |
 | Autre chose | Envoyez une capture d'écran à l'administrateur du projet. |

@@ -14,12 +14,18 @@ you would to a colleague. No need to know GitHub.
 
    ![Code button in the Claude app](images/code-tab-toggle.png)
 
-3. Click **new chat**, then choose your **Documents** folder.
-4. Copy the **setup message** ([click here to show it](getting-started.en.md#step-2-paste-the-setup-message)), paste it into the chat and send it.
-5. Let Claude work. When it asks you:
+3. Click **new chat**.
+4. **Important: choose "Local".** By default, Claude works in the *cloud* (**Default** button, cloud icon): it cannot install anything on your computer. Click **Default**, then **Local**.
+
+   ![Environment menu: choose Local](images/environment-local.png)
+
+   If "Local" shows a **Download** button, you are in the browser: install and open the **Claude app** (https://claude.ai/download).
+5. Click **Select a repository…**, then choose your **Documents** folder.
+6. Copy the **setup message** ([click here to show it](getting-started.en.md#step-2-paste-the-setup-message)), paste it into the chat and send it.
+7. Let Claude work. When it asks you:
    - click **Allow**;
    - type the code it gives you on the GitHub page that opens, then reply "done".
-6. At the end, **fully quit the Claude app and reopen it**.
+8. At the end, **fully quit the Claude app and reopen it**, then check that **singulier** appears under **+ > Plugins**.
 
 ---
 
@@ -28,16 +34,17 @@ you would to a colleague. No need to know GitHub.
 1. Open the **Claude app**.
 2. Click **`</>`**.
 3. Click **new chat**.
-4. Choose the **Singulier** folder, then the **product** you are interested in.
-5. Write your request, simply:
+4. Choose **Local** (not "Default"), then click **Select a repository…**.
+5. Choose the **Singulier** folder, then the **product** you are interested in.
+6. Write your request, simply:
    - **a question**: "How is the price of a product calculated?"
    - **a ticket**: "Create a ticket: the export button does nothing on the clients page."
    - **a big subject**: "Create an epic for the export redesign." Claude splits it into several tickets grouped in an epic, with a diagram of the order they will be done in.
    - **progress**: "Where are we on the payment integration?"
    - **what you need to check**: "What do I need to test?", then "I tested #380, it works." Claude closes the ticket once you agree.
-6. Claude shows you the ticket **before** creating it: read it, then reply "OK" or say what to change.
-7. Shared a screenshot or a file? Claude asks which ones go in the ticket. You add images yourself on the ticket's GitHub page: Claude gives you the link, drag them into the comment box at the bottom.
-8. Ticket created: type `/clear` or open a **new chat** for the next topic. A very long conversation makes Claude slower and less precise. Nothing is lost: it is all in the ticket.
+7. Claude shows you the ticket **before** creating it: read it, then reply "OK" or say what to change.
+8. Shared a screenshot or a file? Claude asks which ones go in the ticket. You add images yourself on the ticket's GitHub page: Claude gives you the link, drag them into the comment box at the bottom.
+9. Ticket created: type `/clear` or open a **new chat** for the next topic. A very long conversation makes Claude slower and less precise. Nothing is lost: it is all in the ticket.
 
 ---
 

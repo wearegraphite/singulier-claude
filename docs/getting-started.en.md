@@ -29,7 +29,13 @@ when to click. Allow 15 to 30 minutes, once.
    ![Code button in the Claude app](images/code-tab-toggle.png)
 
    You are now in **Claude Code**: the mode where Claude can work on your computer. The bubble on the left is the usual chat; it cannot do the setup.
-3. Start a new session. If Claude asks you to choose a folder, pick your **Documents** folder.
+3. Click **new chat**.
+4. **Choose "Local".** By default, Claude works in the *cloud* (**Default** button, cloud icon): it then runs on an Anthropic server and cannot install anything on your computer. Click **Default**, then **Local**.
+
+   ![Environment menu: choose Local](images/environment-local.png)
+
+   If "Local" shows a **Download** button, you are in the browser: install and open the Claude app (https://claude.ai/download).
+5. Click **Select a repository…**, then choose your **Documents** folder.
 
 ---
 
@@ -42,15 +48,16 @@ GitHub), paste it into Claude Code and send it.
 Talk to me in English, simply: I am not technical. Set up my computer to work on Singulier projects. Run every command yourself. Only ask me to act when it cannot be avoided (clicking in an installer, confirming in the browser), one thing at a time, telling me exactly where to click.
 
 Steps, in order. Announce each step in one sentence, then do it.
+0. Environment: run `uname -s`. If the result is `Linux`, you are running in the cloud and not on my computer: tell me to start a new chat choosing "Local" (not "Default"), and stop.
 1. System: detect macOS or Windows.
 2. git: check `git --version`. If missing: on macOS run `xcode-select --install` and tell me to click "Install" in the window that opens, then wait until I am done; on Windows run `winget install --id Git.Git -e --accept-source-agreements --accept-package-agreements`.
 3. GitHub CLI: check `gh --version`. If missing: on macOS download the `gh_*_macOS_universal.pkg` file of the latest release (https://api.github.com/repos/cli/cli/releases/latest), open it with `open` and guide me through the installer (it will ask for the computer password); on Windows run `winget install --id GitHub.cli -e --accept-source-agreements --accept-package-agreements`.
    On Windows, if you installed git or gh: tell me to fully quit the Claude app, reopen it and paste this message again. Stop there.
 4. GitHub login: if `gh auth status` fails or does not show the `project` scope, run `gh auth login --web -h github.com -p https -s project` in the background, read its output, give me the 8-character code and the link https://github.com/login/device, and wait until I tell you it is confirmed. Check with `gh auth status`, then run `gh auth setup-git`.
 5. Access: run `gh repo list wearegraphite --limit 100`. If the list is empty, give me my GitHub username (`gh api user --jq .login`), tell me to send it to the project admin, and stop.
-6. Singulier plugin: if you do not already have `singulier:` skills, add to my user Claude settings (`settings.json` in the Claude configuration folder, usually `~/.claude/`; merge, overwrite nothing): in `extraKnownMarketplaces`, the key `singulier` with `{"source": {"source": "github", "repo": "wearegraphite/singulier-claude"}, "autoUpdate": true}`; in `enabledPlugins`, `"singulier@singulier": true`.
+6. Singulier plugin: if you already have `singulier:` skills, skip. Otherwise run `claude plugin marketplace add wearegraphite/singulier-claude`, then `claude plugin install singulier@singulier --scope user`, then `claude plugin list` to check `singulier` is installed. If the `claude` command is not found, look for the Claude Code program installed by the app and use its full path. If it fails, show me the exact error and stop: do not edit the settings by hand.
 7. Projects: create the `Singulier` folder in my home folder. Show me the projects from step 5 with simple names, ask which ones I want, and clone each with `gh repo clone wearegraphite/<project> "<Singulier folder>/<project>"`.
-8. End: sum up in three lines what is ready, then tell me to fully quit the Claude app and reopen it.
+8. End: sum up in three lines what is ready, then tell me to fully quit the Claude app, reopen it, and check that "singulier" appears under the + > Plugins menu.
 
 If a step fails twice, stop and tell me what to send to the project admin.
 ```
@@ -66,7 +73,7 @@ During the setup:
 ## Every day
 
 1. Open the Claude app and click **`</>`**.
-2. Start a session and choose the project folder: your home folder, then **Singulier**, then the project name.
+2. Click **new chat**, choose **Local** (not "Default"), then **Select a repository…**: your home folder, then **Singulier**, then the project name.
 3. Ask your question in plain words, as you would ask a colleague.
 
 The project updates itself at each new session: you always see the current
@@ -98,6 +105,8 @@ Good to know:
 | --- | --- |
 | No `</>` icon | Update the Claude app (app menu) or reinstall it from https://claude.ai/download. |
 | Claude says it cannot run commands | You are in the chat (bubble): click `</>`. |
+| Claude says it runs on `Linux` or in the cloud | You kept "Default". Open a **new chat**, click **Default** and choose **Local**. |
+| "singulier" does not appear under **+ > Plugins** | Fully quit the app and reopen it. If still missing, open a new chat in **Local** and ask: "check my singulier plugin installation". |
 | Claude says the project could not be updated | Check your internet connection. If it persists, ask it to "check my installation". |
 | Claude says you have no access to a project | Send your GitHub username to the project admin. |
 | Anything else | Send a screenshot to the project admin. |
