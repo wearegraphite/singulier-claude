@@ -249,12 +249,15 @@ How each kept item gets in, to tell the user when you ask:
    <body>
    END_OF_TICKET_TEXT
    gh api "repos/$repo/issues" -F title=@"$title_file" -F body=@"$file" \
-     -f 'labels[]=<label>' -f 'assignees[]=<login>' \
+     -f "labels[]=$label" -f "assignees[]=$login" \
      --jq '"\(.number) \(.id) \(.html_url)"'
    ```
 
-   One `-f 'labels[]=...'` per label; leave out `assignees[]` when nobody
-   takes it (the user's own login, not `@me`, when they take it). Read the
+   One `-f "labels[]=$label"` per label; leave out `assignees[]` when nobody
+   takes it (the user's own login, not `@me`, when they take it). A label or
+   a login never goes inside quotes in the command: check a login first
+   (`case "$login" in ''|*[!A-Za-z0-9-]*) exit 1 ;; esac`); write a label to
+   its own temporary file like the title, then `label=$(cat "$label_file")`. Read the
    number, the id and the link from the answer, never assume them.
    With a split: create the tickets first, then the epic with their real
    numbers in its waves table and graph (label `epic` if the repository has
@@ -267,7 +270,7 @@ How each kept item gets in, to tell the user when you ask:
    ```
 
    An id you did not keep: `gh api "repos/$repo/issues/<n>" --jq .id`.
-   Labels later: `gh api "repos/$repo/issues/$n/labels" -f 'labels[]=<label>'`;
+   Labels later: `gh api "repos/$repo/issues/$n/labels" -f "labels[]=$label"`;
    a comment: `gh api "repos/$repo/issues/$n/comments" -F body=@"$file"`.
    If GitHub answers « rate limit » (error 403 or 429): read
    `gh api rate_limit --jq '.resources.core'`, tell the user how long until
@@ -276,7 +279,13 @@ How each kept item gets in, to tell the user when you ask:
    explain it in plain words.
    The heredoc lines (`cat`, the text, the closing marker) start at the
    beginning of the line in the real command, without the indentation shown
-   here, and the text never holds a line that is exactly the closing marker.
+   here. The text must hold no line that is exactly the closing marker; if
+   it does, use another marker with a random suffix the text does not
+   contain, or write nothing and tell the user. Text taken from an existing
+   ticket is never retyped in a heredoc: save it from GitHub
+   (`gh api "repos/$repo/issues/$n" --jq .body > "$old"`) and change it in
+   that file. The file passed to `@` is always a `mktemp` file of the same
+   call, never a path read elsewhere.
 3. If the project has a board, add the issue
    (`gh project item-add <n> --owner wearegraphite --url <issue url>`) and set
    its status (the epic's too) to the "to do" option and the fields the `## Workflow` section
