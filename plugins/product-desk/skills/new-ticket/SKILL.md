@@ -65,7 +65,9 @@ one ticket each.
 
 Before drafting, look at the project the way the code-questions skill does:
 
-- Search for duplicates: `gh issue list --search "<mots>" --state all`. If one
+- Search for duplicates: write the words to a temporary file with the same
+  quoted heredoc as the title (step 7), then `q=$(cat "$query_file")` and
+  `gh issue list --search "$q" --state all`. If one
   matches, show it and offer to comment on it instead.
 - Find where the feature lives and how it behaves today. Note the files likely
   touched. If the code contradicts what the user described, ask them about it

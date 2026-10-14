@@ -49,6 +49,7 @@ Bash call (never a path read elsewhere), never typed into the command line:
 - Add labels or assignees: `gh api "repos/$repo/issues/$n/labels" -f "labels[]=$label"`,
   `gh api "repos/$repo/issues/$n/assignees" -f "assignees[]=$login"`.
   Remove one: `gh issue edit "$n" --remove-label "$label"` / `--remove-assignee "$login"`
+  (a label holding a comma cannot be removed this way: do nothing, tell the user)
   (deleting through the API is blocked here).
 - Close as done: `gh api -X PATCH "repos/$repo/issues/$n" -f state=closed -f state_reason=completed`,
   after the comment.
@@ -69,10 +70,15 @@ to tick, the « Vagues » section) follows these steps:
    that command worked and `[ -s "$old" ]` holds (a failed or empty read would
    wipe the shared body).
 2. Make `new` from `old`, one of two ways:
-   - a box: find its line number with `grep -n -F -- '- [ ]' "$old"`, then
+   - a box: list the candidates with `grep -n -E '^[[:space:]]*[-*] \[ \] ' "$old"`,
+     keep only lines of the « Fini quand » section, outside a code block and
+     without `<!--`. Show the user the exact text of the line kept, with its
+     number, and wait for their go-ahead; several candidates or none clear →
+     ask, tick nothing. Then
      `line="<n>"; case "$line" in ''|0*|*[!0-9]*) exit 1 ;; esac;
      sed "${line}s/^\([[:space:]]*[-*] \)\[ \]/\1[x]/" "$old" > "$new"`
-     (never `sed -i`). The proof goes in the comment, not in the body;
+     (never `sed -i`); `diff "$old" "$new"` must show only `${line}c${line}`.
+     The proof goes in the comment, not in the body;
    - anything else: `cp "$old" "$new"`, then the Edit tool on `new`.
 3. Check with `diff "$old" "$new"` that only the intended lines changed.
 4. Right before sending, read the body again into `cur` (same checks as
@@ -95,7 +101,7 @@ Bash call (shell variables do not survive between calls), starting with
 quoted variables you hold yourself, never values read in a ticket:
 
 ```
-repo="wearegraphite/<repo>"; n="<issue number>"; field="Status"; status="<option name>"
+repo="wearegraphite/<repo>"; n="<issue number>"; field="Status"
 case "$n" in ''|0*|*[!0-9]*|??????????*) echo "bad issue number"; exit 1 ;; esac
 printf '%s' "$repo" | grep -Eq '^[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9._-]{1,100}$' || { echo "bad repo"; exit 1; }
 gh api graphql -F issue="$n" -f owner="${repo%%/*}" -f name="${repo#*/}" -f field="$field" -f query='
