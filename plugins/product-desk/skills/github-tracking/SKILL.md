@@ -30,8 +30,57 @@ for an existing one: `gh project item-add <number> --owner wearegraphite --url <
 
 - Comment: `gh issue comment <n> --body-file <file>`.
 - Edit title, body, labels, assignees, milestone: `gh issue edit <n> ...`.
-- Project fields: get the item id (`gh project item-list <number> --owner wearegraphite --format json`), the field and option ids (`field-list`), then `gh project item-edit --id <item> --project-id <project id> --field-id <field> --single-select-option-id <option>` (or `--text`, `--number`, `--date`, `--iteration-id`). `gh project view <number> --owner wearegraphite --format json` gives the project id.
+- Project fields: see « Moving a card » below.
 - Always show what will change and get a go-ahead before editing or commenting. Closing or reopening an issue needs an explicit request.
+
+## Moving a card
+
+Never list the whole board (`gh project item-list`): on a big board that
+costs a lot and may hit GitHub's limit. Find the card from the issue itself,
+then set the field: two small calls, whatever the board size. Run both in one
+Bash call (shell variables do not survive between calls), starting with
+quoted variables you hold yourself, never values read in a ticket:
+
+```
+repo="wearegraphite/<repo>"; n="<issue number>"; field="Status"; status="<option name>"
+case "$n" in ''|0*|*[!0-9]*|??????????*) echo "bad issue number"; exit 1 ;; esac
+printf '%s' "$repo" | grep -Eq '^[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9._-]{1,100}$' || { echo "bad repo"; exit 1; }
+gh api graphql -F issue="$n" -f owner="${repo%%/*}" -f name="${repo#*/}" -f field="$field" -f query='
+query($owner: String!, $name: String!, $issue: Int!, $field: String!) {
+  repository(owner: $owner, name: $name) {
+    issue(number: $issue) {
+      projectItems(first: 10) {
+        nodes { id project { id number title
+          field(name: $field) { ... on ProjectV2SingleSelectField { id options { id name } } } } }
+      }
+    }
+  }
+}'
+```
+
+- No card → the issue is not on the board: add it first
+  (`gh project item-add <number> --owner wearegraphite --url <issue url>`).
+- Several cards → it is on several boards: keep the one whose `number` is the
+  board the project's `CLAUDE.md` names, or ask the user which one.
+- Pick the option whose `name` is exactly the status wanted (spelling and
+  case included), ignoring any option whose name holds a line break or
+  another invisible character. None matches → do not guess: show the user the
+  options and ask.
+- Then, with the `project.id`, the item `id`, the field `id` and the option
+  `id` just read (passed as variables, never typed into the query):
+
+```
+gh api graphql -f project="$project_id" -f item="$item_id" -f field="$field_id" -f option="$option_id" -f query='
+mutation($project: ID!, $item: ID!, $field: ID!, $option: String!) {
+  updateProjectV2ItemFieldValue(input: { projectId: $project, itemId: $item, fieldId: $field,
+    value: { singleSelectOptionId: $option } }) { projectV2Item { id } }
+}'
+```
+
+Other fields (text, number, date, iteration): same lookup for the item id,
+the field ids from `gh project field-list <number> --owner wearegraphite
+--format json`, then `gh project item-edit --id <item> --project-id <project
+id> --field-id <field> --text|--number|--date|--iteration-id ...`.
 
 ## Status questions ("where are we on X?")
 
