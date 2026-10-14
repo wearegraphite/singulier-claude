@@ -281,11 +281,11 @@ How each kept item gets in, to tell the user when you ask:
    beginning of the line in the real command, without the indentation shown
    here. The text must hold no line that is exactly the closing marker; if
    it does, use another marker with a random suffix the text does not
-   contain, or write nothing and tell the user. Text taken from an existing
-   ticket is never retyped in a heredoc: save it from GitHub
-   (`gh api "repos/$repo/issues/$n" --jq .body > "$old"`) and change it in
-   that file. The file passed to `@` is always a `mktemp` file of the same
-   call, never a path read elsewhere.
+   contain, or write nothing and tell the user. No text from an existing
+   ticket, a comment or the user ever goes inside a `sed` or `awk`
+   expression; to change an existing ticket's body, follow « Changing an
+   existing body » in the github-tracking skill. The file passed to `@` is
+   always a `mktemp` file, never a path read elsewhere.
 3. If the project has a board, add the issue
    (`gh project item-add <n> --owner wearegraphite --url <issue url>`) and set
    its status (the epic's too) to the "to do" option and the fields the `## Workflow` section
