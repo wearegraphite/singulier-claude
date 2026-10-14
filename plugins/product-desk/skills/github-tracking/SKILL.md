@@ -28,8 +28,23 @@ for an existing one: `gh project item-add <number> --owner wearegraphite --url <
 
 ## Updating
 
-- Comment: `gh issue comment <n> --body-file <file>`.
-- Edit title, body, labels, assignees, milestone: `gh issue edit <n> ...`.
+Over GitHub's REST API, with `repo` and `n` as quoted shell variables you
+hold yourself, and any text (comment, title, body) in a temporary file
+(`file=$(mktemp)`, written with a quoted heredoc
+`cat > "$file" <<'END_OF_TICKET_TEXT'`),
+never typed into the command line:
+
+- Comment: `gh api "repos/$repo/issues/$n/comments" -F body=@"$file"`.
+- Body or title: `gh api -X PATCH "repos/$repo/issues/$n" -F body=@"$file"`
+  (`-F title=@"$title_file"`); milestone: `-F milestone=<number>`.
+- Add labels or assignees: `gh api "repos/$repo/issues/$n/labels" -f 'labels[]=<label>'`,
+  `gh api "repos/$repo/issues/$n/assignees" -f 'assignees[]=<login>'`.
+  Remove one: `gh issue edit "$n" --remove-label <label>` / `--remove-assignee <login>`
+  (deleting through the API is blocked here).
+- Close as done: `gh api -X PATCH "repos/$repo/issues/$n" -f state=closed -f state_reason=completed`,
+  after the comment.
+- Rate limit (« rate limit » in a 403 or 429): read `gh api rate_limit --jq '.resources.core'`,
+  tell the user how long until `reset`, wait once, never retry in a loop.
 - Project fields: see « Moving a card » below.
 - Always show what will change and get a go-ahead before editing or commenting. Closing or reopening an issue needs an explicit request.
 
