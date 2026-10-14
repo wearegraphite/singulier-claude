@@ -50,7 +50,7 @@ you would to a colleague. No need to know GitHub.
 6. Write your request, simply:
    - **a question**: "How is the price of a product calculated?"
    - **a ticket**: "Create a ticket: the export button does nothing on the clients page."
-   - **a big subject**: "Create an epic for the export redesign." Claude splits it into several tickets grouped in an epic, with a diagram of the order they will be done in.
+   - **a big subject**: "Create an epic for the export redesign." Claude splits it into several tickets grouped in an epic, with a diagram of the order they will be done in. On that diagram each ticket takes a colour as work goes on: 🟡 in progress, 🧪 delivered, one manual check left, ✅ done, ⛔ blocked.
    - **progress**: "Where are we on the payment integration?"
    - **what you need to check**: "What do I need to test?", then "I tested #380, it works." Claude closes the ticket once you agree.
 7. Claude always asks **who should take the ticket**: you, a colleague, or nobody for now. The ticket also says you created it: you are the one the developer contacts if something is unclear. Then Claude shows you the ticket **before** creating it: read it, then reply "OK" or say what to change.

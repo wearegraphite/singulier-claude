@@ -50,7 +50,7 @@ en écrivant comme à un collègue. Pas besoin de connaître GitHub.
 6. Écrivez votre demande, simplement :
    - **une question** : « Comment est calculé le prix d'un produit ? »
    - **un ticket** : « Crée un ticket : le bouton d'export ne fait rien sur la page clients. »
-   - **un gros sujet** : « Crée un épic pour la refonte de l'export. » Claude le découpe en plusieurs tickets regroupés dans un épic, avec un schéma de l'ordre dans lequel ils seront faits.
+   - **un gros sujet** : « Crée un épic pour la refonte de l'export. » Claude le découpe en plusieurs tickets regroupés dans un épic, avec un schéma de l'ordre dans lequel ils seront faits. Sur ce schéma, chaque ticket prend une couleur au fil du travail : 🟡 en cours, 🧪 livré, il reste une vérification à faire à la main, ✅ fini, ⛔ bloqué.
    - **l'avancement** : « Où en est-on sur l'intégration du paiement ? »
    - **ce que vous devez vérifier** : « Qu'est-ce que je dois tester ? », puis « J'ai testé #380, c'est bon. » Claude ferme le ticket après votre accord.
 7. Claude vous demande toujours **à qui confier le ticket** : vous, un collègue, ou personne pour l'instant. Le ticket indique aussi qu'il a été créé par vous : c'est vous que le développeur contactera si quelque chose n'est pas clair. Puis Claude vous montre le ticket **avant** de le créer : relisez-le, puis répondez « OK » ou dites ce qu'il faut changer.

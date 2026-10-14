@@ -180,9 +180,14 @@ Légende : 🟡 en cours · 🧪 livré, reste une vérification à la main · �
   and do not share files go in the same wave.
 - Always both the table and the graph. Graph: one node per ticket, id
   `t<N>`, label `"#<N>"`, one arrow per "waits for" (the awaited ticket → the
-  one that waits). Leave « Statut » empty and keep the four `classDef` lines
-  and the legend: ticket-flow's `run-epic` fills them in (🟡 en cours, 🧪 livré
-  à tester, ✅ fini, ⛔ bloqué) as developers deliver.
+  one that waits); a ticket that waits for nothing and that nothing waits for
+  is a node on its own line (`td["#d"]`). Only numbers in the graph, never a
+  title. Leave « Statut » empty and keep the four `classDef` lines (yellow
+  `enCours`, blue `aTester`, green `fini`, red `bloque`) and the legend:
+  ticket-flow's `run-epic` fills them in (🟡 en cours, 🧪 livré à tester,
+  ✅ fini, ⛔ bloqué) as developers deliver. Each node then reads
+  `"#<N> <emoji>"` with a line `class t<N> <classDef>`, and each wave's
+  « Statut » cell gets the emoji of the wave.
 - The real numbers only exist once the tickets are created: show the draft
   with `#a`, `#b`... and replace them in step 7.
 
