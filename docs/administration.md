@@ -7,7 +7,7 @@ prevent mistakes.
 
 - **Repositories**: give team members the **Triage** role. It allows creating, editing, labelling, assigning, closing and reopening issues, but not pushing code or merging pull requests. Use **Read** if they should only read and comment.
 - **Project boards**: add them to each GitHub Project as **Write** (Project settings > Manage access), so they can add items, change fields and create views.
-- **This plugin repository**: everyone who installs the plugin needs **Read** access to `wearegraphite/singulier-claude`, as it is private.
+- **This plugin repository**: `wearegraphite/singulier-claude` is public, so installing the plugin needs no GitHub access. Only maintainers need write access, to push changes.
 - Protect the long-lived branches (`main`, `dev`) with branch protection rules anyway.
 
 ## Organisation-wide deployment
@@ -37,7 +37,7 @@ Points to know:
 - `autoUpdate: true` makes Claude Code fetch new plugin versions in the background (off by default for non-Anthropic marketplaces). Set in managed settings, users cannot turn it off.
 
 - It applies to every member, developers included. The plugin only acts inside the workspace folder, so developers' own clones are not affected.
-- Members still need read access to this private repository for Claude Code to fetch it. To verify on a first test machine before rolling out.
+- Verify on a first test machine before rolling out.
 - Managed settings can also be delivered by MDM or a `managed-settings.json` file. See the Claude Code documentation: https://code.claude.com/docs/en/plugins/org.md and https://code.claude.com/docs/en/managed-settings.md.
 
 ## Which branch team members follow

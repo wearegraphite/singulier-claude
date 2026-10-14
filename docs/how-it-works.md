@@ -30,7 +30,7 @@ settings.
   nothing, network included. `SINGULIER_WORKSPACE` does not move it: a test
   workspace elsewhere gets no band.
 - At session start, then every 6 hours, it reads the `plugin.json` published
-  on `main` (raw GitHub, else `gh api` while the repository is private). A
+  on `main` (raw GitHub, else `gh api`). A
   session left open for days still sees a new version.
 - Newer than the installed one: a row above the prompt, in the terminal and
   the desktop app, « ⬆ product-desk X disponible [ Mettre à jour ] ». The button

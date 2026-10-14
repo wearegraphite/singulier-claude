@@ -63,5 +63,5 @@ Do the bump before every push that changes `plugins/product-desk/`, not only for
 
 How users get it:
 
-- **Auto-update** (`autoUpdate: true` on the marketplace): Claude Code refreshes the marketplace in the background a few minutes into a session; the new version loads at the next launch or after `/reload-plugins`. It needs stored GitHub credentials (`gh auth setup-git`) while the repository is private, and fails silently otherwise.
+- **Auto-update** (`autoUpdate: true` on the marketplace): Claude Code refreshes the marketplace in the background a few minutes into a session; the new version loads at the next launch or after `/reload-plugins`. The repository is public, so it needs no GitHub credentials.
 - **Our own update band**: at session start and every 6 hours, a row above the prompt says a newer version is on `main` and updates it in place with one button (see [How it works](how-it-works.md#update-band)).

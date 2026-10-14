@@ -29,9 +29,8 @@ session (the default, "Default" button) Claude runs on an Anthropic server: the
 tools, the plugin and the clones end up there, not on the user's computer. Step
 0 of the setup message detects it (`uname -s` returns `Linux`) and stops.
 
-Claude Code clones the marketplace with the user's git credentials: `gh auth
-setup-git` (step 4) must have run before the plugin install, as the repository
-is private.
+The plugin repository is public: Claude Code clones the marketplace without any
+GitHub login.
 
 ## Checking the plugin is installed
 
@@ -43,7 +42,7 @@ If it is not:
 
 - in a Local session, run `claude plugin list` and look at the Errors tab of `/plugin`;
 - check that `singulier` is listed in `~/.claude/plugins/known_marketplaces.json`;
-- the most common causes: a Cloud session, no git credential for the private repository, the app not restarted.
+- the most common causes: a Cloud session, a blocked network, the app not restarted.
 
 ## Renamed from `singulier` (0.9.0)
 
